@@ -78,6 +78,7 @@ Press Enter to continue...
 ### Development 
 Required updates I have noticed from use...
 - The prompts need to be conformed towards my current standards of format found in other recent programs.
+- The windows commands do not include `copy`. Possibly install of them introduces screen garbage in the title.
 
 ### Warning:
 Development was stopped, due continuing sound issues on fedora 40, through multiple, claude and gpt, assisted sessions to fix the sound, and during the proces GPT said basically `the KVM abilities of Fedora 40 are the same as in Ubuntu`, hence I installed Ubuntu 24.10 beta instead. After using all the tweaks/installs on Fedora40, I then merges all the scripts and instructions into one script, ready for conversion to `Ubuntu 24.10` compatibility, and thats where the project is now heading. The current implementation available for download is UN-TESTED, but basically the same but merged version of the known working version, and has been checked over by claude sonnet after creation, so use at your own risk and asses output for errors.
