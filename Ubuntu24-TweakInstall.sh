@@ -20,7 +20,59 @@ declare -A STATUS=(
     ["WINDOWS_COMMANDS"]="Pending"
 )
 
-# ... [Previous functions remain unchanged: print_banner, print_separator, log_message, clear_screen, check_root, check_error, pause_and_report] ...
+# Function to print a dynamic banner with a menu name (80 characters)
+print_banner() {
+    local menu_name="$1"
+    printf '=%.0s' {1..80}
+    echo -e "\n    Ubuntu24-TweakInstall - $menu_name"
+    printf '=%.0s' {1..80}
+    echo ""
+}
+
+# Function to print a separator line (80 characters)
+print_separator() {
+    printf '=%.0s' {1..80}
+    echo ""
+}
+
+# Function to log and display messages
+log_message() {
+    local message="$1"
+    echo -e "$message"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $message" >> "$logfile"
+}
+
+# Function to clear the screen and display the dynamic banner
+clear_screen() {
+    local menu_name="$1"
+    clear
+    print_banner "$menu_name"
+}
+
+# Function to check if script is run as root
+check_root() {
+    if [ "$(id -u)" != "0" ]; then
+        echo "This script must be run as root" 1>&2
+        exit 1
+    fi
+}
+
+# Function to check for errors and handle them gracefully
+check_error() {
+    if [ $? -ne 0 ]; then
+        log_message "Error occurred during: $1"
+        read -p "An error occurred. Press Enter to continue or Ctrl+C to exit."
+    else
+        log_message "$1 completed successfully."
+    fi
+}
+
+# Function to pause and report status
+pause_and_report() {
+    local message="$1"
+    log_message "$message"
+    read -p "Press Enter to continue..."
+}
 
 # Function to display the main menu with status updates
 display_main_menu() {
@@ -40,7 +92,34 @@ display_main_menu() {
     read -p "Selection = 1-5, Exit Program = X: " menu_choice
 }
 
-# ... [Basic and Intermediate installation functions remain unchanged] ...
+# Function for basic OS installation (Ubuntu-specific)
+basic_installation() {
+    clear_screen "Basic OS Install"
+    
+    sudo apt update -y
+    sudo apt upgrade -y
+    check_error "System Update"
+    sudo apt install -y vim nano curl wget git htop
+    check_error "Basic Tool Installation"
+    
+    STATUS[BASIC_INSTALL]="Completed"
+    pause_and_report "Basic OS installation completed."
+}
+
+# Function for intermediate setup (Ubuntu-specific)
+intermediate_installation() {
+    clear_screen "Intermediate OS Setup"
+    
+    sudo apt install -y build-essential qemu-kvm libvirt-daemon-system virtinst virt-manager gcc gnome-tweaks gnome-shell-extensions mesa-vulkan-drivers
+    check_error "Development Tools Installation"
+
+    sudo systemctl enable --now libvirtd
+    sudo usermod -aG libvirt "$SUDO_USER"
+    check_error "Libvirt Setup"
+    
+    STATUS[INTERMEDIATE_INSTALL]="Completed"
+    pause_and_report "Intermediate OS setup completed."
+}
 
 # Function for CPU setup
 cpu_setup() {
@@ -191,7 +270,145 @@ intel_gpu_setup() {
     pause_and_report "Intel GPU setup completed."
 }
 
-# ... [Windows-like features functions remain unchanged] ...
+# Function to implement Windows-like commands
+implement_windows_commands() {
+    local command_file="/etc/profile.d/windows_commands.sh"
+    cat > "$command_file" <<EOL
+function dir() {
+    ls -l "\$@"
+}
+
+function copy() {
+    cp -i "\$@"
+}
+
+function move() {
+    mv -i "\$@"
+}
+
+function del() {
+    rm -i "\$@"
+}
+
+function md() {
+    mkdir -p "\$@"
+}
+
+function rd() {
+    rmdir "\$@"
+}
+
+function cls() {
+    clear
+}
+
+function type() {
+    cat "\$@"
+}
+
+function where() {
+    which "\$@"
+}
+
+function echo() {
+    printf "%s\n" "\$*"
+}
+
+function shutdown() {
+    sudo shutdown -h now
+}
+
+function restart() {
+    sudo shutdown -r now
+}
+EOL
+
+    chmod +x "$command_file"
+    source "$command_file"
+    check_error "Windows-like Commands Implementation"
+    STATUS[WINDOWS_COMMANDS]="Completed"
+}
+
+# Function for Windows-like features submenu (Ubuntu)
+windows_like_features() {
+    while true; do
+        clear_screen "Windows-like Features"
+        echo ""
+        echo "1. Implement security tweaks (WARNING: Significantly reduces system security)"
+        echo ""
+        echo "2. Implement Windows-like commands"
+        echo ""
+        print_separator
+        read -p "Selection = 1-2, Back to Main = B: " tweak_choice
+
+        case $tweak_choice in
+            1)
+                implement_security_tweaks
+                ;;
+            2)
+                implement_windows_commands
+                ;;
+            [Bb])
+                return
+                ;;
+            *)
+                echo "Invalid option. Please try again."
+                sleep 2
+                ;;
+        esac
+    done
+}
+
+# Function for implementing security tweaks (Ubuntu)
+implement_security_tweaks() {
+    clear_screen "Security Tweaks"
+    echo -e "\nWARNING: This will make significant changes to your system's security settings."
+    echo "These changes will make your system behave more like Windows with UAC disabled."
+    echo "This configuration is HIGHLY INSECURE and should only be used in controlled environments."
+    read -p "Are you sure you want to continue? (y/N): " confirm
+
+    if [[ $confirm != [yY] ]]; then
+        echo "Operation cancelled."
+        return
+    fi
+
+    # Disable sudo password prompt
+    echo "$SUDO_USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd > /dev/null
+    chmod 0440 /etc/sudoers.d/nopasswd
+    check_error "Sudo Password Prompt Disable"
+
+    # Disable AppArmor
+    sudo systemctl disable apparmor
+    sudo systemctl stop apparmor
+    check_error "AppArmor Disable"
+
+    # Disable UFW (Uncomplicated Firewall)
+    sudo ufw disable
+    check_error "UFW Disable"
+
+    # Allow execution of scripts without explicit interpreter
+    sudo sed -i 's/^#include <sys\/stat.h>/&\n#ifndef SHEBANG\n#define SHEBANG\n#endif/' /usr/include/linux/binfmts.h
+    check_error "Script Execution Without Interpreter"
+
+    # Enable auto-login for the current user
+    sudo sed -i "s/^#  AutomaticLogin/AutomaticLogin=$SUDO_USER/" /etc/gdm3/custom.conf
+    check_error "Auto-login Enable"
+
+    # Disable password complexity requirements
+    sudo sed -i 's/^password.*pam_pwquality.so.*/password requisite pam_pwquality.so minlen=1/' /etc/pam.d/common-password
+    check_error "Password Complexity Disable"
+
+    echo "Configuration complete. Your system now behaves more like Windows with UAC disabled."
+    echo "REMEMBER: This configuration is HIGHLY INSECURE. Use only in controlled environments."
+    STATUS[WINDOWS_TWEAKS]="Completed"
+    pause_and_report "Windows-like security tweaks completed."
+}
+
+# Function to handle invalid input
+invalid_option() {
+    echo -e "\nInvalid option selected. Please try again."
+    sleep 2
+}
 
 # Main loop to handle user input and menu navigation
 main_menu_loop() {
