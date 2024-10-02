@@ -9,7 +9,7 @@ In transitioning to Ubuntu, there were some things I noticed, that could be done
 - Intermediate OS setup installs development tools, QEMU, libvirt, GCC, GNOME tweaks, and Vulkan drivers.
 - CPU setup offers options for AMD and Intel CPU-specific tools and optimizations.
 - GPU setup provides options for AMDGPU (Non-ROCm and ROCm), NVIDIA, and Intel GPU drivers and optimizations.
-- Windows-like features include adding basic Windows-like commands to the terminal, `cd..`, `copy`, `dir`, etc.
+- Windows-like features include adding basic Windows-like commands to the terminal, `cd..`, `dir`, etc.
 - The main menu dynamically updates with the status of each installation step.
 - The script includes a function to implement Windows-like commands such as dir, copy, move, del, md, rd, cls, type, where, echo, shutdown, and restart.
 - The script has option for disable sudo password prompts, AppArmor, and password complexity requirements to mimic Windows Disable, `UAC` and `Software Protection`, type actions.
