@@ -16,20 +16,19 @@ In transitioning to Ubuntu, there were some things I noticed, that could be done
     Ubuntu24-TweakInstall - Main Menu
 ================================================================================
 
-
 1. Basic OS Install          (Status: Pending)
 
 2. Intermediate OS Setup     (Status: Pending)
 
-3. AMDGPU & AOCL Setup       (Status: Pending)
+3. CPU Setup                 (Status: Pending)
 
-4. Multi-GPU Setup           (Status: Pending)
+4. GPU Setup                 (Status: Pending)
 
 5. Windows-like Features     (Status: Pending/Pending)
 
-
 ================================================================================
-Selection = 1-5, Exit Program = X:
+Selection = 1-5, Exit Program = X: 
+
 ```
 
 ### INSTRUCTIONS:
