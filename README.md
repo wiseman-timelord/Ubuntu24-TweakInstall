@@ -1,6 +1,5 @@
 # Ubuntu24-TweakInstall
-Repository still being Setup...
-Its my tweaks for Ubuntu, likely themed towards tuning it towards being windows-user friendly.
+Status: Extremely Experimental AND Un-Tested.
 
 ### Description:
 In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, that are somewhat old-dogs/grumpy-goatslike myself. Its a continuation of the `Fedora40-TweakInstall` project. 
