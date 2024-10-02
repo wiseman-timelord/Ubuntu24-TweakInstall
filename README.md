@@ -2,7 +2,7 @@
 Status: Extremely Experimental AND Un-Tested.
 
 ### Description:
-In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, that are somewhat old-dogs/grumpy-goatslike myself. Its a continuation of the `Fedora40-TweakInstall` project. 
+In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, that are somewhat old-dogs/grumpy-goats, like am I (Its a continuation of the `Fedora40-TweakInstall` project). 
 
 ### Features:
 - provides an interactive menu-driven installer for Fedora 40, guiding users through basic OS installation, intermediate setup, AMDGPU and AOCL configuration, and multi-GPU setup, while logging the process and providing status updates for each step.
