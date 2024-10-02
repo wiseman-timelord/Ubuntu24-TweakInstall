@@ -76,18 +76,18 @@ Press Enter to continue...
 - Its a continuation of the `Fedora40-TweakInstall` project in my other repository; `Ubuntu24-TweakInstall` will be somewhat, better/safer and more complete/advanced.
 - Windows Commands in the terminal are...
 ```
-1. `dir` - Lists directory contents in a detailed format.
-2. `copy` - Copies files and directories.
-3. `move` - Moves files and directories.
-4. `del` - Deletes files and directories.
-5. `md` - Creates directories.
-6. `rd` - Removes directories.
-7. `cls` - Clears the terminal screen.
-8. `type` - Displays the contents of a file.
-9. `where` - Locates the binary, source, or manual page files for a command.
-10. `echo` - Prints text to the terminal.
-11. `shutdown` - Shuts down the system.
-12. `restart` - Restarts the system.
+`dir` - Lists directory contents in a detailed format.
+`copy` - Copies files and directories.
+`move` - Moves files and directories.
+`del` - Deletes files and directories.
+`md` - Creates directories.
+`rd` - Removes directories.
+`cls` - Clears the terminal screen.
+`type` - Displays the contents of a file.
+`where` - Locates the binary, source, or manual page files for a command.
+`echo` - Prints text to the terminal.
+`shutdown` - Shuts down the system.
+`restart` - Restarts the system.
 ```
 
 ### Development 
