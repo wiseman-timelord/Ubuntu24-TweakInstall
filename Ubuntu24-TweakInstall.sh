@@ -272,6 +272,9 @@ intel_gpu_setup() {
 
 # Function to implement Windows-like commands
 implement_windows_commands() {
+    clear_screen "Implement Windows-like Commands"
+    log_message "Starting the implementation of Windows-like commands."
+
     local command_file="/etc/profile.d/windows_commands.sh"
     cat > "$command_file" <<EOL
 function dir() {
@@ -326,6 +329,10 @@ EOL
     chmod +x "$command_file"
     source "$command_file"
     check_error "Windows-like Commands Implementation"
+
+    log_message "Windows-like commands have been successfully implemented."
+    echo "Windows-like commands have been successfully implemented."
+    pause_and_report "Windows-like commands implementation completed."
     STATUS[WINDOWS_COMMANDS]="Completed"
 }
 
