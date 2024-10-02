@@ -19,11 +19,17 @@ declare -A STATUS=(
     ["WINDOWS_COMMANDS"]="Pending"
 )
 
-# Function to print a dynamic banner with a menu name
+# Function to print a dynamic banner with a menu name (80 characters)
 print_banner() {
     local menu_name="$1"
     printf '=%.0s' {1..80}
     echo -e "\n    Ubuntu24-TweakInstall - $menu_name"
+    printf '=%.0s' {1..80}
+    echo ""
+}
+
+# Function to print a separator line (80 characters)
+print_separator() {
     printf '=%.0s' {1..80}
     echo ""
 }
@@ -53,10 +59,15 @@ check_root() {
 # Function to display the main menu with status updates
 display_main_menu() {
     clear_screen "Main Menu"
+    echo ""
     echo "1. Basic OS Install          (Status: ${STATUS[BASIC_INSTALL]})"
+    echo ""
     echo "2. Intermediate OS Setup     (Status: ${STATUS[INTERMEDIATE_INSTALL]})"
+    echo ""
     echo "3. AMDGPU & AOCL Setup       (Status: ${STATUS[AMDGPU_INSTALL]})"
+    echo ""
     echo "4. Multi-GPU Setup           (Status: ${STATUS[MULTI_GPU_INSTALL]})"
+    echo ""
     echo "5. Windows-like Features     (Status: ${STATUS[WINDOWS_TWEAKS]}/${STATUS[WINDOWS_COMMANDS]})"
     echo ""
     print_separator
@@ -139,8 +150,11 @@ EOL
 windows_like_features() {
     while true; do
         clear_screen "Windows-like Features"
+        echo ""
         echo "1. Implement security tweaks (WARNING: Reduces system security)"
+        echo ""
         echo "2. Implement Windows-like commands"
+        echo ""
         print_separator
         read -p "Selection = 1-2, Back to Main = B: " tweak_choice
 
