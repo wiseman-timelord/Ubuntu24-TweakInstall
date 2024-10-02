@@ -386,10 +386,6 @@ implement_security_tweaks() {
     sudo ufw disable
     check_error "UFW Disable"
 
-    # Allow execution of scripts without explicit interpreter
-    sudo sed -i 's/^#include <sys\/stat.h>/&\n#ifndef SHEBANG\n#define SHEBANG\n#endif/' /usr/include/linux/binfmts.h
-    check_error "Script Execution Without Interpreter"
-
     # Enable auto-login for the current user
     sudo sed -i "s/^#  AutomaticLogin/AutomaticLogin=$SUDO_USER/" /etc/gdm3/custom.conf
     check_error "Auto-login Enable"
