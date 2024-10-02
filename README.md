@@ -5,9 +5,14 @@ Status: Extremely Experimental AND Un-Tested.
 In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, that are somewhat old-dogs/grumpy-goats, like am I (Its a continuation of the `Fedora40-TweakInstall` project). 
 
 ### Features:
-- provides an interactive menu-driven installer for Fedora 40, guiding users through basic OS installation, intermediate setup, AMDGPU and AOCL configuration, and multi-GPU setup, while logging the process and providing status updates for each step.
-- Configures a Fedora system to behave more like Windows by disabling security features, creating a MIME handler for shell scripts, and removing authorization prompts, significantly reducing system security and potentially exposing the system to serious vulnerabilities.
-- Enables basic msdos commands in the terminal, that then shortcut to actual terminal commands, for convinience, so as for basic commands like, `cd..` or `dir`, to do equivalent things in the Terminal.
+- Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop.
+- Intermediate OS setup installs development tools, QEMU, libvirt, GCC, GNOME tweaks, and Vulkan drivers.
+- CPU setup offers options for AMD and Intel CPU-specific tools and optimizations.
+- GPU setup provides options for AMDGPU (Non-ROCm and ROCm), NVIDIA, and Intel GPU drivers and optimizations.
+- Windows-like features include implementing security tweaks to reduce system security and adding Windows-like commands.
+- The main menu dynamically updates with the status of each installation step.
+- The script includes a function to implement Windows-like commands such as dir, copy, move, del, md, rd, cls, type, where, echo, shutdown, and restart.
+- The script has option for disable sudo password prompts, AppArmor, and password complexity requirements to mimic Windows Disable, `UAC` and `Software Protection`, type actions.
 
 ### Preview:
 - The `Main Menu` interface...
