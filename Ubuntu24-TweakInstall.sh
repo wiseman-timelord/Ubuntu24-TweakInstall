@@ -22,9 +22,9 @@ declare -A STATUS=(
 # Function to print a dynamic banner with a menu name
 print_banner() {
     local menu_name="$1"
-    printf '=%.0s' {1..120}
+    printf '=%.0s' {1..80}
     echo -e "\n    Ubuntu24-TweakInstall - $menu_name"
-    printf '=%.0s' {1..120}
+    printf '=%.0s' {1..80}
     echo ""
 }
 
