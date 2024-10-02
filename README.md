@@ -2,7 +2,7 @@
 Status: Extremely Experimental AND Un-Tested.
 
 ### Description:
-In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, that are somewhat old-dogs/grumpy-goats, like am I (Its a continuation of the `Fedora40-TweakInstall` project). 
+In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, that are somewhat old-dogs/grumpy-goats, like am I. 
 
 ### Features:
 - Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop.
@@ -45,7 +45,11 @@ Selection = 1-5, Exit Program = X:
 
 ### Notation:
 - `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. 
-- I am unable to test the final product as now on Ubuntu, hence my `Ubuntu24-TweakInstall` project, but, if `Fedora40-TweakInstall` does not work, and you, can fix it and feel inspired, then feel free to upload to a fork.
+- Its a continuation of the `Fedora40-TweakInstall` project in my other repository; `Ubuntu24-TweakInstall` will be somewhat, better/safer and more complete/advanced.
+
+### Development 
+Required updates I have noticed from use...
+- The prompts need to be conformed towards my current standards of format found in other recent programs.
 
 ### Warning:
 Development was stopped, due continuing sound issues on fedora 40, through multiple, claude and gpt, assisted sessions to fix the sound, and during the proces GPT said basically `the KVM abilities of Fedora 40 are the same as in Ubuntu`, hence I installed Ubuntu 24.10 beta instead. After using all the tweaks/installs on Fedora40, I then merges all the scripts and instructions into one script, ready for conversion to `Ubuntu 24.10` compatibility, and thats where the project is now heading. The current implementation available for download is UN-TESTED, but basically the same but merged version of the known working version, and has been checked over by claude sonnet after creation, so use at your own risk and asses output for errors.
