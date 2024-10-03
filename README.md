@@ -21,10 +21,13 @@ In transitioning to Ubuntu, there were some things I noticed, that could be done
     Ubuntu-PostInstall-Setup - Main Menu
 ================================================================================
 
-1. Setup-Install Basic Requirements          (Status: Pending)
-2. Setup-Install Software Managers          (Status: Pending)
-3. CPU Setup                                (Status: Pending)
-4. GPU Setup                                (Status: Pending)
+    1. Setup-Install Basic Requirements          (Status: Pending)
+
+    2. Setup-Install Software Managers          (Status: Pending)
+
+    3. CPU Setup                                (Status: Pending)
+
+    4. GPU Setup                                (Status: Pending)
 
 ================================================================================
 Selection = 1-4, Exit Program = X:
