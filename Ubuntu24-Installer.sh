@@ -77,8 +77,11 @@ display_main_menu() {
         clear_screen "Main Menu"
         echo ""
         echo "1. Setup-Install Basic Requirements          (Status: ${STATUS[BASIC_INSTALL]})"
+        echo ""
         echo "2. Setup-Install Software Managers           (Status: ${STATUS[SOFTWARE_MANAGERS]})"
+        echo ""
         echo "3. CPU Setup                                (Status: ${STATUS[CPU_SETUP]})"
+        echo ""
         echo "4. GPU Setup                                (Status: ${STATUS[GPU_SETUP]})"
         echo ""
         print_separator
@@ -105,9 +108,10 @@ setup_software_managers_menu() {
         clear_screen "Setup-Install Software Managers"
         echo ""
         echo "1. Install Gnome Software Manager"
+        echo ""
         echo "2. Install Synaptic Package Manager"
+        echo ""
         echo "3. Enable Snap Applications/Packages"
-        echo "B. Back to Main Menu"
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-3, Back to Main = B: " software_choice
@@ -132,8 +136,8 @@ cpu_setup() {
         clear_screen "CPU Setup"
         echo ""
         echo "1. AMD CPU Setup"
+        echo ""
         echo "2. Intel CPU Setup"
-        echo "B. Back to Main Menu"
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-2, Back to Main = B: " cpu_choice
@@ -153,10 +157,12 @@ gpu_setup() {
         clear_screen "GPU Setup"
         echo ""
         echo "1. AMDGPU (Non-ROCm)"
+        echo "" 
         echo "2. AMDGPU (ROCm)"
+        echo ""
         echo "3. NVIDIA GPU Setup"
+        echo ""
         echo "4. Intel GPU Setup"
-        echo "B. Back to Main Menu"
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-4, Back to Main = B: " gpu_choice
