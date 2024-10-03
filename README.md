@@ -33,7 +33,7 @@ In transitioning to Ubuntu, there were some things I noticed, that could be done
 Selection = 1-4, Exit Program = X: 
 
 ```
-- The `Main Menu` for the `Tweaker` (hopefully it can un-do too now)...
+- The `Main Menu` for the `Tweaker` (hopefully it can un-do now too)...
 ```
 ================================================================================
     Ubuntu24-Windows-like Features - Main Menu
