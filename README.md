@@ -18,19 +18,16 @@ In transitioning to Ubuntu, there were some things I noticed, that could be done
 - The `Main Menu` for the `Installer`...
 ```
 ================================================================================
-    Ubuntu24-TweakInstall - Main Menu
+    Ubuntu-PostInstall-Setup - Main Menu
 ================================================================================
 
 1. Setup-Install Basic Requirements          (Status: Pending)
-
-2. Setup/Install Emulation Libraries        (Status: Pending)
-
+2. Setup-Install Software Managers
 3. CPU Setup                                (Status: Pending)
-
 4. GPU Setup                                (Status: Pending)
 
 ================================================================================
-Selection = 1-4, Exit Program = X: 
+Selection = 1-4, Exit Program = X:
 
 ```
 - The `Main Menu` for the `Tweaker` (hopefully it can un-do now too)...
