@@ -5,14 +5,14 @@ Status: Mostly Working, but requires development.
 In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, and assist in basic install requirements. This project then became 2 tools, one for install and one for tweaking. I was able to boot just fine, but older versions broke things. The first script is an installer for Ubuntu 24 that provides, batch and modular, setup options, including basic requirements (batch), emulation libraries (individual), CPU setup (modular), and GPU setup (modular). It ensures system updates and installations are logged and handles errors gracefully. The second script focuses on implementing Windows-like features for Ubuntu 24, including security tweaks that significantly reduce system security and the addition of Windows-like commands. It is designed for controlled environments where reduced security is acceptable. First thing I noticed after going through the processes of the Installer, is that the sound was working on my Usb SoundCard, so as to be able to skim videos while installing other software (Note, GPUs Specific Sound Output Install/Setup is, complicated and not featured). 
 
 ### Features:
-- Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop.
-- Intermediate OS setup installs development tools, QEMU, libvirt, GCC, GNOME tweaks, and Vulkan drivers.
-- CPU setup offers options for AMD and Intel CPU-specific tools and optimizations.
-- GPU setup provides options for AMDGPU (Non-ROCm and ROCm), NVIDIA, and Intel GPU drivers and optimizations.
-- Windows-like features include adding basic Windows-like commands to the terminal, `cd..`, `dir`, etc.
-- The main menu dynamically updates with the status of each installation step.
-- The script includes a function to implement Windows-like commands such as dir, copy, move, del, md, rd, cls, type, where, echo, shutdown, and restart.
-- The script has option for disable sudo password prompts, AppArmor, and password complexity requirements to mimic Windows Disable, `UAC` and `Software Protection`, type actions.
+- Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop. (Installer)
+- Intermediate OS setup installs development tools, QEMU, libvirt, GCC, GNOME tweaks, and Vulkan drivers. (Installer)
+- CPU setup offers options for AMD and Intel CPU-specific tools and optimizations. (Installer)
+- GPU setup provides options for AMDGPU (Non-ROCm and ROCm), NVIDIA, and Intel GPU drivers and optimizations. (Installer)
+- The main menu dynamically updates with the status of each installation step. (Both)
+- Option to implement Windows-like commands such as dir, copy, move, del, md, rd, cls, type, where, echo, shutdown, and restart. (Tweaker)
+- Option for disable sudo password prompts, AppArmor, and password complexity requirements to mimic Windows Disable, `UAC` and `Software Protection`, type actions. (Tweaker)
+- Windows-like features include adding basic Windows-like commands to the terminal, `cd..`, `dir`, etc. (Tweaker)
 
 ### Preview:
 - The `Main Menu` for the `Installer`...
