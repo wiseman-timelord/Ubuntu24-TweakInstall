@@ -2,7 +2,7 @@
 Status: Mostly Working, but requires development. 
 
 ### Description:
-In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, and assist in basic install requirements. This project then became 2 tools, one for install and one for tweaking. Installer = Safe, Tweaker = Experimental (use at own risk). I was able to boot just fine, but older versions broke things.
+In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, and assist in basic install requirements. This project then became 2 tools, one for install and one for tweaking. I was able to boot just fine, but older versions broke things.
 - The first script is an installer for Ubuntu 24 that provides, batch and modular, setup options, including basic requirements (batch), emulation libraries (individual), CPU setup (modular), and GPU setup (modular). It ensures system updates and installations are logged and handles errors gracefully.
 - The second script focuses on implementing Windows-like features for Ubuntu 24, including security tweaks that significantly reduce system security and the addition of Windows-like commands. It is designed for controlled environments where reduced security is acceptable.
 
@@ -118,4 +118,5 @@ Required updates I have noticed from use...
 - The windows commands do not include `copy`. Possibly install of them introduces screen garbage in the title.
 
 ### Warnings:
-- You are NOT intended to use ALL of the features in the tweaker, be selective, and additionally after you are done, I would keep the tweaker open, and ensure you can still run for example `Firefox`, just to make sure things still run, and then if they dont, then you will be able to un-do the relating tweaks, and try again. Again the "Tweaker" script is extremely experimental, so I advise first trying them out on a VM of the OS you intend to use them on.
+- Installer = Safe, Tweaker = Experimental (use at own risk). Alike the Installer, you are NOT intended to just use ALL of the features in the tweaker, be selective, and additionally after you are done, I would keep the tweaker open, and ensure you can still run for example `Firefox`, just to make sure new complex processes can still run, and then if they dont, then you will be able to un-do the relating tweaks, and try again. Again the "Tweaker" script is extremely experimental, so I advise first trying them out on a VM of the OS you intend to use them on.
+- If there is some issue with a device, after restarting, after using the Installer, then try re-starting again, this fixed itself for me, but I had a blank screen on one of the monitors, its an iffy old monitor prone to issues though.
