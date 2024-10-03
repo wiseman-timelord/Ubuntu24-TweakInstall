@@ -1,17 +1,16 @@
 #!/bin/bash
 
-# Ubuntu 24 Installer with Modular Setup and Basic Requirements
+# Ubuntu Post-Install Setup Script
 
 # Exit on any error
 set -e
 
 # Log file for installation process
-logfile="/var/log/ubuntu24_install.log"
+logfile="/var/log/ubuntu_post_install.log"
 
 # Variables to track the status of installation steps
 declare -A STATUS=(
     ["BASIC_INSTALL"]="Pending"
-    ["EMULATION_LIBRARIES"]="Pending"
     ["CPU_SETUP"]="Pending"
     ["GPU_SETUP"]="Pending"
 )
@@ -20,7 +19,7 @@ declare -A STATUS=(
 print_banner() {
     local menu_name="$1"
     printf '=%.0s' {1..80}
-    echo -e "\n    Ubuntu24-TweakInstall - $menu_name"
+    echo -e "\n    Ubuntu-PostInstall-Setup - $menu_name"
     printf '=%.0s' {1..80}
     echo ""
 }
@@ -57,7 +56,8 @@ check_root() {
 check_error() {
     if [ $? -ne 0 ]; then
         log_message "Error occurred during: $1"
-        read -p "An error occurred. Press Enter to continue or Ctrl+C to exit."
+        echo "An error occurred during $1. Check the log file at $logfile for details."
+        read -p "Press Enter to continue or Ctrl+C to exit."
     else
         log_message "$1 completed successfully."
     fi
@@ -70,20 +70,32 @@ pause_and_report() {
     read -p "Press Enter to continue..."
 }
 
-# Function to display the main menu with status updates
+# Main Menu with its own input handler
 display_main_menu() {
-    clear_screen "Main Menu"
-    echo ""
-    echo "1. Setup-Install Basic Requirements          (Status: ${STATUS[BASIC_INSTALL]})"
-    echo ""
-    echo "2. Setup/Install Emulation Libraries        (Status: ${STATUS[EMULATION_LIBRARIES]})"
-    echo ""
-    echo "3. CPU Setup                                (Status: ${STATUS[CPU_SETUP]})"
-    echo ""
-    echo "4. GPU Setup                                (Status: ${STATUS[GPU_SETUP]})"
-    echo ""
-    print_separator
-    read -p "Selection = 1-4, Exit Program = X: " menu_choice
+    while true; do
+        clear_screen "Main Menu"
+        echo ""
+        echo "1. Setup-Install Basic Requirements          (Status: ${STATUS[BASIC_INSTALL]})"
+        echo "2. Setup-Install Software Managers"
+        echo "3. CPU Setup                                (Status: ${STATUS[CPU_SETUP]})"
+        echo "4. GPU Setup                                (Status: ${STATUS[GPU_SETUP]})"
+        echo ""
+        print_separator
+        read -p "Selection = 1-4, Exit Program = X: " menu_choice
+
+        case $menu_choice in
+            1) basic_installation ;;
+            2) setup_software_managers_menu ;;
+            3) cpu_setup ;;
+            4) gpu_setup ;;
+            [Xx]) 
+                log_message "Exiting the installation script."
+                echo "Exiting..."
+                exit 0
+                ;;
+            *) invalid_option ;;
+        esac
+    done
 }
 
 # Function for basic OS installation (Ubuntu-specific)
@@ -91,7 +103,7 @@ basic_installation() {
     clear_screen "Setup-Install Basic Requirements"
     
     sudo apt update -y
-    sudo apt upgrade -y
+    sudo apt upgrade -y --fix-missing
     check_error "System Update"
     sudo apt install -y vim nano curl wget git htop
     check_error "Basic Tool Installation"
@@ -100,38 +112,82 @@ basic_installation() {
     pause_and_report "Basic OS installation completed."
 }
 
-# Function for setting up emulation libraries
-setup_emulation_libraries() {
-    clear_screen "Setup/Install Emulation Libraries"
-    
-    sudo apt update -y
-    sudo apt install -y qemu-kvm libvirt-daemon-system virtinst virt-manager
-    check_error "Emulation Libraries Installation"
+# Function for Software Manager Setup Menu with its own input handler
+setup_software_managers_menu() {
+    while true; do
+        clear_screen "Setup-Install Software Managers"
+        echo ""
+        echo "1. Install Gnome Software Manager"
+        echo "2. Install Synaptic Package Manager"
+        echo "3. Enable Snap Applications/Packages"
+        echo "B. Back to Main Menu"
+        echo ""
+        print_separator
+        read -p "Selection; Menu Options = 1-3, Back to Main = B: " software_choice
 
-    sudo systemctl enable --now libvirtd
-    sudo usermod -aG libvirt "$SUDO_USER"
-    check_error "Libvirt Setup"
-    
-    STATUS[EMULATION_LIBRARIES]="Completed"
-    pause_and_report "Emulation libraries setup completed."
+        case $software_choice in
+            1) install_gnome_software_manager ;;
+            2) install_synaptic_package_manager ;;
+            3) enable_snap_packages ;;
+            [Bb]) return ;;
+            *) echo "Invalid option. Please try again."; sleep 2 ;;
+        esac
+    done
 }
 
-# Function for CPU setup
+# Function to install Gnome Software Manager
+install_gnome_software_manager() {
+    clear_screen "Installing Gnome Software Manager"
+    
+    sudo apt update
+    sudo apt install -y gnome-software
+    check_error "Gnome Software Manager Installation"
+    
+    pause_and_report "Gnome Software Manager installation completed."
+}
+
+# Function to install Synaptic Package Manager
+install_synaptic_package_manager() {
+    clear_screen "Installing Synaptic Package Manager"
+    
+    sudo apt update
+    sudo apt install -y synaptic
+    check_error "Synaptic Package Manager Installation"
+    
+    pause_and_report "Synaptic Package Manager installation completed."
+}
+
+# Function to enable Snap applications
+enable_snap_packages() {
+    clear_screen "Enabling Snap Applications/Packages"
+    
+    sudo apt update
+    sudo apt install -y snapd
+    check_error "Snap Installation"
+    
+    sudo systemctl enable --now snapd.socket
+    sudo ln -s /var/lib/snapd/snap /snap
+    check_error "Snap Daemon Setup"
+    
+    pause_and_report "Snap applications enabled and Snap Daemon configured."
+}
+
+# Function for CPU setup with its own input handler
 cpu_setup() {
     while true; do
         clear_screen "CPU Setup"
         echo ""
         echo "1. AMD CPU Setup"
         echo "2. Intel CPU Setup"
-        echo "3. Back to Main Menu"
+        echo "B. Back to Main Menu"
         echo ""
         print_separator
-        read -p "Selection = 1-3: " cpu_choice
+        read -p "Selection = 1-2, Back to Main = B: " cpu_choice
 
         case $cpu_choice in
             1) amd_cpu_setup ;;
             2) intel_cpu_setup ;;
-            3) return ;;
+            [Bb]) return ;;
             *) echo "Invalid option. Please try again."; sleep 2 ;;
         esac
     done
@@ -141,17 +197,11 @@ cpu_setup() {
 amd_cpu_setup() {
     clear_screen "AMD CPU Setup"
     
-    # Install AMD-specific tools and libraries
     sudo apt install -y amd64-microcode
     check_error "AMD Microcode Installation"
 
-    # AOCL (AMD Optimizing CPU Libraries) setup
     echo "Setting up AOCL..."
-    # Note: AOCL setup might require manual steps or a more complex installation process
-    # This is a placeholder for where you'd put the AOCL installation commands
     echo "Please visit the AMD website for detailed AOCL installation instructions."
-    
-    # Additional AMD-specific optimizations can be added here
     
     STATUS[CPU_SETUP]="Completed (AMD)"
     pause_and_report "AMD CPU setup completed."
@@ -161,19 +211,14 @@ amd_cpu_setup() {
 intel_cpu_setup() {
     clear_screen "Intel CPU Setup"
     
-    # Install Intel-specific tools and libraries
     sudo apt install -y intel-microcode
     check_error "Intel Microcode Installation"
 
-    # Intel specific optimizations can be added here
-    echo "Installing Intel-specific optimizations..."
-    # Placeholder for Intel-specific setups
-    
     STATUS[CPU_SETUP]="Completed (Intel)"
     pause_and_report "Intel CPU setup completed."
 }
 
-# Function for GPU setup
+# Function for GPU setup with its own input handler
 gpu_setup() {
     while true; do
         clear_screen "GPU Setup"
@@ -182,17 +227,17 @@ gpu_setup() {
         echo "2. AMDGPU (ROCm)"
         echo "3. NVIDIA GPU Setup"
         echo "4. Intel GPU Setup"
-        echo "5. Back to Main Menu"
+        echo "B. Back to Main Menu"
         echo ""
         print_separator
-        read -p "Selection = 1-5: " gpu_choice
+        read -p "Selection = 1-4, Back to Main = B: " gpu_choice
 
         case $gpu_choice in
             1) amdgpu_non_rocm_setup ;;
             2) amdgpu_rocm_setup ;;
             3) nvidia_gpu_setup ;;
             4) intel_gpu_setup ;;
-            5) return ;;
+            [Bb]) return ;;
             *) echo "Invalid option. Please try again."; sleep 2 ;;
         esac
     done
@@ -208,10 +253,12 @@ amdgpu_non_rocm_setup() {
     sudo apt install -y vulkan-tools mesa-vulkan-drivers
     check_error "Vulkan Installation"
     
-    sudo grub-set-default "$(grep -i 'menuentry ' /boot/grub/grub.cfg | cut -f2 -d "'" | head -n 1)"
-    sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="amdgpu.vm_fragment_size=9 /' /etc/default/grub
-    sudo update-grub
-    check_error "Kernel Optimization for AMDGPU"
+    read -p "Do you want to optimize kernel parameters for AMDGPU? (y/n): " optimize
+    if [[ $optimize == "y" ]]; then
+        sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="amdgpu.vm_fragment_size=9 /' /etc/default/grub
+        sudo update-grub
+        check_error "Kernel Optimization for AMDGPU"
+    fi
     
     STATUS[GPU_SETUP]="Completed (AMDGPU Non-ROCm)"
     pause_and_report "AMDGPU (Non-ROCm) setup completed."
@@ -221,15 +268,13 @@ amdgpu_non_rocm_setup() {
 amdgpu_rocm_setup() {
     clear_screen "AMDGPU (ROCm) Setup"
     
-    # Add ROCm repository
+    # Add ROCm repository (using Ubuntu-specific repo)
     echo 'deb [arch=amd64] https://repo.radeon.com/rocm/apt/debian/ ubuntu main' | sudo tee /etc/apt/sources.list.d/rocm.list
     sudo apt update
     
-    # Install ROCm
     sudo apt install -y rocm-dkms
     check_error "ROCm Installation"
     
-    # Add user to video group
     sudo usermod -a -G video $SUDO_USER
     sudo usermod -a -G render $SUDO_USER
     
@@ -243,10 +288,11 @@ amdgpu_rocm_setup() {
 nvidia_gpu_setup() {
     clear_screen "NVIDIA GPU Setup"
     
-    sudo apt install -y nvidia-driver-530
+    # Install the recommended NVIDIA driver
+    ubuntu-drivers devices
+    read -p "Enter the recommended driver version (e.g., nvidia-driver-XXX): " nvidia_driver
+    sudo apt install -y $nvidia_driver
     check_error "NVIDIA Driver Installation"
-    
-    # Additional NVIDIA-specific setup can be added here
     
     STATUS[GPU_SETUP]="Completed (NVIDIA)"
     pause_and_report "NVIDIA GPU setup completed."
@@ -259,8 +305,6 @@ intel_gpu_setup() {
     sudo apt install -y intel-media-va-driver-non-free
     check_error "Intel GPU Driver Installation"
     
-    # Additional Intel GPU-specific setup can be added here
-    
     STATUS[GPU_SETUP]="Completed (Intel)"
     pause_and_report "Intel GPU setup completed."
 }
@@ -271,28 +315,8 @@ invalid_option() {
     sleep 2
 }
 
-# Main loop to handle user input and menu navigation
-main_menu_loop() {
-    while true; do
-        display_main_menu
-        
-        case $menu_choice in
-            1) basic_installation ;;
-            2) setup_emulation_libraries ;;
-            3) cpu_setup ;;
-            4) gpu_setup ;;
-            [Xx]) 
-                log_message "Exiting the installation script."
-                echo "Exiting..."
-                exit 0
-                ;;
-            *) invalid_option ;;
-        esac
-    done
-}
-
 # Start the script
-clear_screen "Ubuntu 24 Installation"
+clear_screen "Ubuntu Post-Install Setup"
 check_root
-log_message "Ubuntu 24 installation script started at $(date)"
-main_menu_loop
+log_message "Ubuntu post-installation setup script started at $(date)"
+display_main_menu
