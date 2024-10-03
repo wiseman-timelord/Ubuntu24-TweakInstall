@@ -119,6 +119,7 @@ Required updates I have noticed from use...
 -e \n    Ubuntu24-Windows-like Features - Main Menu
 ================================================================================
 ```
+- The Individual `VM` related install, needs to be made into Modular submenu again. Essential LLM option had to be removed, error with build-tools was it? 
 
 ### Warnings:
 - Installer = Safe, Tweaker = Experimental (use at own risk). Alike the Installer, you are NOT intended to just use ALL of the features in the tweaker, be selective, and additionally after you are done, I would keep the tweaker open, and ensure you can still run for example `Firefox`, just to make sure new complex processes can still run, and then if they dont, then you will be able to un-do the relating tweaks, and try again. Again the "Tweaker" script is extremely experimental, so I advise first trying them out on a VM of the OS you intend to use them on.
