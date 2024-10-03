@@ -73,6 +73,7 @@ Press Enter to continue...
 5) Move on to next stage, whatever you determine to be of interest, probal, App Center/Software Manager; At this point any new issues are your own doing.
 
 ### Notation:
+- `Intermediate OS Setup` includes things like, `KVM` for Machine Emulation and `LLM` things for Model Interference, if you dont need that, then dont use the option.
 - `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. 
 - Its a continuation of the `Fedora40-TweakInstall` project in my other repository; `Ubuntu24-TweakInstall` will be somewhat, better/safer and more complete/advanced.
 - Windows Commands in the terminal are (dont expect them to all work perfect, fixing is done here `/etc/profile.d/windows_commands.sh`)...
