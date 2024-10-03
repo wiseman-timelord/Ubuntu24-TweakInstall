@@ -1,8 +1,10 @@
 # Ubuntu24-TweakInstall
-Status: Extremely Experimental AND Un-Tested.
+Status: Mostly Working, but requires development. 
 
 ### Description:
-In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, that are somewhat old-dogs/grumpy-goats, like am I. 
+In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, and assist in basic install requirements. This project then became 2 tools, one for install and one for tweaking. Installer = Safe, Tweaker = Experimental (use at own risk). I was able to boot just fine, but older versions broke things.
+- The first script is an installer for Ubuntu 24 that provides, batch and modular, setup options, including basic requirements (batch), emulation libraries (individual), CPU setup (modular), and GPU setup (modular). It ensures system updates and installations are logged and handles errors gracefully.
+- The second script focuses on implementing Windows-like features for Ubuntu 24, including security tweaks that significantly reduce system security and the addition of Windows-like commands. It is designed for controlled environments where reduced security is acceptable.
 
 ### Features:
 - Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop.
@@ -15,21 +17,39 @@ In transitioning to Ubuntu, there were some things I noticed, that could be done
 - The script has option for disable sudo password prompts, AppArmor, and password complexity requirements to mimic Windows Disable, `UAC` and `Software Protection`, type actions.
 
 ### Preview:
-- The `Main Menu` interface...
+- The `Main Menu` for the `Installer`...
 ```
 ================================================================================
     Ubuntu24-TweakInstall - Main Menu
 ================================================================================
 
-1. Basic OS Install          (Status: Pending)
+1. Setup-Install Basic Requirements          (Status: Pending)
 
-2. Intermediate OS Setup     (Status: Pending)
+2. Setup/Install Emulation Libraries        (Status: Pending)
 
-3. CPU Setup                 (Status: Pending)
+3. CPU Setup                                (Status: Pending)
 
-4. GPU Setup                 (Status: Pending)
+4. GPU Setup                                (Status: Pending)
 
-5. Windows-like Features     (Status: Pending/Pending)
+================================================================================
+Selection = 1-4, Exit Program = X: 
+
+```
+- The `Main Menu` for the `Tweaker`...
+```
+================================================================================
+    Ubuntu24-Windows-like Features - Main Menu
+================================================================================
+
+1. Disable sudo password prompt (SUDO_NOPASSWD)          (Status: Disabled)
+
+2. Disable AppArmor (APPARMOR)                           (Status: Enabled)
+
+3. Disable UFW (Uncomplicated Firewall) (UFW)            (Status: Enabled)
+
+4. Enable auto-login (AUTO_LOGIN)                        (Status: Disabled)
+
+5. Implement Windows-like commands (WINDOWS_COMMANDS)    (Status: Disabled)
 
 ================================================================================
 Selection = 1-5, Exit Program = X: 
@@ -66,8 +86,8 @@ Press Enter to continue...
 
 ### INSTRUCTIONS:
 1) download and copy file `Ubuntu24-TweakInstall.sh` to a suitable directory.
-2) As required, then make the file executable with the  `chmod +x Ubuntu24-TweakInstall.sh`, then run `./Fedora40-TweakInstall.sh`.
-3) Investigate the menu, take a look at what it offers, plan what features you intend to use, and select them (ensuring to note errors that pop up).
+2) As required, then make the file executable with the  `chmod +x Ubuntu24-TweakInstall.sh`, then run either, `sudo ./Ubuntu24-Installer.sh` or `sudo ./Ubuntu24-Tweaker.sh`.
+3) Investigate the appropriate menus, take a look at what it offers, plan what features you intend to use, and select them (ensuring to note errors that pop up).
 4) Restart computer, to enable all tweaks/installs to take effect. 
 5) If there are issues with anything immediately, then check the notes you made (if any), and investigate appropriately to complete relating install/tweak.
 5) Move on to next stage, whatever you determine to be of interest, probal, App Center/Software Manager; At this point any new issues are your own doing.
@@ -97,5 +117,5 @@ Required updates I have noticed from use...
 - The prompts need to be conformed towards my current standards of format found in other recent programs.
 - The windows commands do not include `copy`. Possibly install of them introduces screen garbage in the title.
 
-### Warning:
-Development was stopped, due continuing sound issues on fedora 40, through multiple, claude and gpt, assisted sessions to fix the sound, and during the proces GPT said basically `the KVM abilities of Fedora 40 are the same as in Ubuntu`, hence I installed Ubuntu 24.10 beta instead. After using all the tweaks/installs on Fedora40, I then merges all the scripts and instructions into one script, ready for conversion to `Ubuntu 24.10` compatibility, and thats where the project is now heading. The current implementation available for download is UN-TESTED, but basically the same but merged version of the known working version, and has been checked over by claude sonnet after creation, so use at your own risk and asses output for errors.
+### Warnings:
+- You are NOT intended to use ALL of the features in the tweaker, be selective, and additionally after you are done, I would keep the tweaker open, and ensure you can still run for example `Firefox`, just to make sure things still run, and then if they dont, then you will be able to un-do the relating tweaks, and try again. Again the "Tweaker" script is extremely experimental, so I advise first trying them out on a VM of the OS you intend to use them on.
