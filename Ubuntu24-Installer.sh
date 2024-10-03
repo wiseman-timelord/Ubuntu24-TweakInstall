@@ -2,15 +2,16 @@
 
 # Ubuntu Post-Install Setup Script
 
-# Exit on any error
+# Initialization
 set -e
 
-# Log file for installation process
+# Variables
 logfile="/var/log/ubuntu_post_install.log"
 
-# Variables to track the status of installation steps
+# Maps/Lists
 declare -A STATUS=(
     ["BASIC_INSTALL"]="Pending"
+    ["SOFTWARE_MANAGERS"]="Pending"
     ["CPU_SETUP"]="Pending"
     ["GPU_SETUP"]="Pending"
 )
@@ -76,7 +77,7 @@ display_main_menu() {
         clear_screen "Main Menu"
         echo ""
         echo "1. Setup-Install Basic Requirements          (Status: ${STATUS[BASIC_INSTALL]})"
-        echo "2. Setup-Install Software Managers"
+        echo "2. Setup-Install Software Managers           (Status: ${STATUS[SOFTWARE_MANAGERS]})"
         echo "3. CPU Setup                                (Status: ${STATUS[CPU_SETUP]})"
         echo "4. GPU Setup                                (Status: ${STATUS[GPU_SETUP]})"
         echo ""
@@ -98,20 +99,6 @@ display_main_menu() {
     done
 }
 
-# Function for basic OS installation (Ubuntu-specific)
-basic_installation() {
-    clear_screen "Setup-Install Basic Requirements"
-    
-    sudo apt update -y
-    sudo apt upgrade -y --fix-missing
-    check_error "System Update"
-    sudo apt install -y vim nano curl wget git htop
-    check_error "Basic Tool Installation"
-    
-    STATUS[BASIC_INSTALL]="Completed"
-    pause_and_report "Basic OS installation completed."
-}
-
 # Function for Software Manager Setup Menu with its own input handler
 setup_software_managers_menu() {
     while true; do
@@ -129,10 +116,74 @@ setup_software_managers_menu() {
             1) install_gnome_software_manager ;;
             2) install_synaptic_package_manager ;;
             3) enable_snap_packages ;;
+            [Bb]) 
+                if [ "${STATUS[SOFTWARE_MANAGERS]}" == "Pending" ]; then
+                    STATUS[SOFTWARE_MANAGERS]="Partially Completed"
+                fi
+                return ;;
+            *) echo "Invalid option. Please try again."; sleep 2 ;;
+        esac
+    done
+}
+
+# Function for CPU setup with its own input handler
+cpu_setup() {
+    while true; do
+        clear_screen "CPU Setup"
+        echo ""
+        echo "1. AMD CPU Setup"
+        echo "2. Intel CPU Setup"
+        echo "B. Back to Main Menu"
+        echo ""
+        print_separator
+        read -p "Selection; Menu Options = 1-2, Back to Main = B: " cpu_choice
+
+        case $cpu_choice in
+            1) amd_cpu_setup ;;
+            2) intel_cpu_setup ;;
             [Bb]) return ;;
             *) echo "Invalid option. Please try again."; sleep 2 ;;
         esac
     done
+}
+
+# Function for GPU setup with its own input handler
+gpu_setup() {
+    while true; do
+        clear_screen "GPU Setup"
+        echo ""
+        echo "1. AMDGPU (Non-ROCm)"
+        echo "2. AMDGPU (ROCm)"
+        echo "3. NVIDIA GPU Setup"
+        echo "4. Intel GPU Setup"
+        echo "B. Back to Main Menu"
+        echo ""
+        print_separator
+        read -p "Selection; Menu Options = 1-4, Back to Main = B: " gpu_choice
+
+        case $gpu_choice in
+            1) amdgpu_non_rocm_setup ;;
+            2) amdgpu_rocm_setup ;;
+            3) nvidia_gpu_setup ;;
+            4) intel_gpu_setup ;;
+            [Bb]) return ;;
+            *) echo "Invalid option. Please try again."; sleep 2 ;;
+        esac
+    done
+}
+
+# Function for basic OS installation (Ubuntu-specific)
+basic_installation() {
+    clear_screen "Setup-Install Basic Requirements"
+    
+    sudo apt update -y
+    sudo apt upgrade -y --fix-missing
+    check_error "System Update"
+    sudo apt install -y vim nano curl wget git htop
+    check_error "Basic Tool Installation"
+    
+    STATUS[BASIC_INSTALL]="Completed"
+    pause_and_report "Basic OS installation completed."
 }
 
 # Function to install Gnome Software Manager
@@ -143,6 +194,7 @@ install_gnome_software_manager() {
     sudo apt install -y gnome-software
     check_error "Gnome Software Manager Installation"
     
+    STATUS[SOFTWARE_MANAGERS]="Completed"
     pause_and_report "Gnome Software Manager installation completed."
 }
 
@@ -154,6 +206,7 @@ install_synaptic_package_manager() {
     sudo apt install -y synaptic
     check_error "Synaptic Package Manager Installation"
     
+    STATUS[SOFTWARE_MANAGERS]="Completed"
     pause_and_report "Synaptic Package Manager installation completed."
 }
 
@@ -169,28 +222,8 @@ enable_snap_packages() {
     sudo ln -s /var/lib/snapd/snap /snap
     check_error "Snap Daemon Setup"
     
+    STATUS[SOFTWARE_MANAGERS]="Completed"
     pause_and_report "Snap applications enabled and Snap Daemon configured."
-}
-
-# Function for CPU setup with its own input handler
-cpu_setup() {
-    while true; do
-        clear_screen "CPU Setup"
-        echo ""
-        echo "1. AMD CPU Setup"
-        echo "2. Intel CPU Setup"
-        echo "B. Back to Main Menu"
-        echo ""
-        print_separator
-        read -p "Selection = 1-2, Back to Main = B: " cpu_choice
-
-        case $cpu_choice in
-            1) amd_cpu_setup ;;
-            2) intel_cpu_setup ;;
-            [Bb]) return ;;
-            *) echo "Invalid option. Please try again."; sleep 2 ;;
-        esac
-    done
 }
 
 # Function for AMD CPU setup
@@ -216,31 +249,6 @@ intel_cpu_setup() {
 
     STATUS[CPU_SETUP]="Completed (Intel)"
     pause_and_report "Intel CPU setup completed."
-}
-
-# Function for GPU setup with its own input handler
-gpu_setup() {
-    while true; do
-        clear_screen "GPU Setup"
-        echo ""
-        echo "1. AMDGPU (Non-ROCm)"
-        echo "2. AMDGPU (ROCm)"
-        echo "3. NVIDIA GPU Setup"
-        echo "4. Intel GPU Setup"
-        echo "B. Back to Main Menu"
-        echo ""
-        print_separator
-        read -p "Selection = 1-4, Back to Main = B: " gpu_choice
-
-        case $gpu_choice in
-            1) amdgpu_non_rocm_setup ;;
-            2) amdgpu_rocm_setup ;;
-            3) nvidia_gpu_setup ;;
-            4) intel_gpu_setup ;;
-            [Bb]) return ;;
-            *) echo "Invalid option. Please try again."; sleep 2 ;;
-        esac
-    done
 }
 
 # Function for AMDGPU (Non-ROCm) setup
