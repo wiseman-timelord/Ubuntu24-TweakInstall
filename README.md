@@ -93,7 +93,7 @@ Press Enter to continue...
 ### Notation:
 - `Intermediate OS Setup` includes things like, `KVM` for Machine Emulation and `LLM` things for Model Interference, if you dont need these things, then dont use the option.
 - `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. 
-- Its a continuation of the `Fedora40-TweakInstall` project, `Ubuntu24-TweakInstall` is more safer/complete. `Fedora40-TweakInstall` is now hidden due to potentially unsafe code, that would require review before marking as safe again, therein, that wont happen unless I reinstall Fedora.
+- Its a continuation of the `Fedora40-TweakInstall` project, `Ubuntu24-TweakInstall` is more safer/complete. `Fedora40-TweakInstall` is hidden due to untested tweaks, that require inspection/fixing/testing, which wont happen unless I reinstall Fedora.
 - Windows Commands in the terminal are (dont expect them to all work perfect, fixing/improving is done here `/etc/profile.d/windows_commands.sh`)...
 ```
 `dir` - Lists directory contents in a detailed format.
