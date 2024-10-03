@@ -22,7 +22,7 @@ In transitioning to Ubuntu, there were some things I noticed, that could be done
 ================================================================================
 
 1. Setup-Install Basic Requirements          (Status: Pending)
-2. Setup-Install Software Managers
+2. Setup-Install Software Managers          (Status: Pending)
 3. CPU Setup                                (Status: Pending)
 4. GPU Setup                                (Status: Pending)
 
