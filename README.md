@@ -39,15 +39,15 @@ Selection = 1-4, Exit Program = X:
     Ubuntu24-Windows-like Features - Main Menu
 ================================================================================
 
-1. Disable sudo password prompt (SUDO_NOPASSWD)          (Status: Enabled)
+    1. Disable sudo password prompt (SUDO_NOPASSWD)          (Status: Enabled)
 
-2. Disable AppArmor (APPARMOR)                           (Status: Enabled)
+    2. Disable AppArmor (APPARMOR)                           (Status: Enabled)
 
-3. Disable UFW (Uncomplicated Firewall) (UFW)            (Status: Enabled)
+    3. Disable UFW (Uncomplicated Firewall) (UFW)            (Status: Enabled)
 
-4. Enable auto-login (AUTO_LOGIN)                        (Status: Disabled)
+    4. Enable auto-login (AUTO_LOGIN)                        (Status: Disabled)
 
-5. Implement Windows-like commands (WINDOWS_COMMANDS)    (Status: Enabled)
+    5. Implement Windows-like commands (WINDOWS_COMMANDS)    (Status: Enabled)
 
 ================================================================================
 Selection = 1-5, Exit Program = X:               
