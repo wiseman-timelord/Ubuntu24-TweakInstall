@@ -115,7 +115,12 @@ Press Enter to continue...
 ### Development 
 Required updates I have noticed from use...
 - The prompts need to be conformed towards my current standards of format found in other recent programs.
-- The windows commands do not include `copy`. Possibly install of them introduces screen garbage in the title.
+- The windows commands do not include `copy`. Possibly install of them introduces screen garbage in the title...
+```
+================================================================================
+-e \n    Ubuntu24-Windows-like Features - Main Menu
+================================================================================
+```
 
 ### Warnings:
 - Installer = Safe, Tweaker = Experimental (use at own risk). Alike the Installer, you are NOT intended to just use ALL of the features in the tweaker, be selective, and additionally after you are done, I would keep the tweaker open, and ensure you can still run for example `Firefox`, just to make sure new complex processes can still run, and then if they dont, then you will be able to un-do the relating tweaks, and try again. Again the "Tweaker" script is extremely experimental, so I advise first trying them out on a VM of the OS you intend to use them on.
