@@ -1,5 +1,5 @@
 # Ubuntu24-TweakInstall
-Status: Mostly Working, but requires development. 
+Status: Mostly Working but requires further, testing and development. 
 
 ### Description:
 In transitioning to Ubuntu, there were some things I noticed, that could be done differently, to make it more user-friendly for life-long windows users, and assist in basic install requirements. This project then became 2 tools, one for install and one for tweaking. I was able to boot just fine, but older versions broke things. The first script is an installer for Ubuntu 24 that provides, batch and modular, setup options, including basic requirements (batch), emulation libraries (individual), CPU setup (modular), and GPU setup (modular). It ensures system updates and installations are logged and handles errors gracefully. The second script focuses on implementing Windows-like features for Ubuntu 24, including security tweaks that significantly reduce system security and the addition of Windows-like commands. It is designed for controlled environments where reduced security is acceptable. First thing I noticed after going through the processes of the Installer, is that the sound was working on my Usb SoundCard, so as to be able to skim videos while installing other software (Note, GPUs Specific Sound Output Install/Setup is, complicated and not specifically implimented). 
