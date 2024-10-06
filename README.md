@@ -91,7 +91,7 @@ Press Enter to continue...
 5) Move on to next stage, whatever you determine to be of interest, probal, App Center/Software Manager; At this point any new issues are your own doing.
 
 ### Notation:
-- Minimum Windows 10 for Vertio/Kvm/QEmu Drivers from `Virtio-Win-0.1.262.Iso`, Windows 7-81 did not conplete Setup.  
+- Minimum Windows 10 for Vertio/Kvm/QEmu Drivers from `Virtio-Win-0.1.262.Iso`, Windows 7-81 did not complete Setup.  
 - For `Ubuntu 22.04` Assistance, here is the link `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04`, it could be done better, as usual with gpt sessions, ask for commands to be able to produce output, in relevance to updates you wish to implement, so that then after being fed ouput.
 - Its for 24.10, because thats the version I was using at the time, this will later expand, like 22-24. In my re-discovery of Ubuntu, 24.04 would not install, even in any of its decimal variants, to my nvme running at 6000MB/s, however, I was able to install just fine on 24.10.x beta, but found this a bad idea for uncertanty about issues, there would not be feedback and fixes. 22.x install worked fine, but I def prefer interface on 24. 
 - `Intermediate OS Setup` includes things like, `KVM` for Machine Emulation and `LLM` things for Model Interference, if you dont need these things, then dont use the option.
