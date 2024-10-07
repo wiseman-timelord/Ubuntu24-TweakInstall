@@ -1,6 +1,6 @@
 # Ubuntu 24.04.1 LTS - TweakInstall
 - Installer Script Status: Beta (Used and working).
-- Tweaker Script Status: Alpha
+- Tweaker Script Status: Alpha (Do not use, danger).
 - Project Status: requires further, testing and development. 
 
 ### Description:
