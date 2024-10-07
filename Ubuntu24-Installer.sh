@@ -68,10 +68,15 @@ display_main_menu() {
     while true; do
         clear_screen "Main Menu"
         echo ""
+        echo ""
         echo "1. Install Basic Operating System Tools and Utilities"
+        echo ""
         echo "2. Setup Optional Extras for Virtualization and Packages"
+        echo ""
         echo "3. Configure CPU-Specific Optimization and Drivers"
+        echo ""
         echo "4. Configure GPU-Specific Optimization and Drivers"
+        echo ""
         echo ""
         print_separator
         read -p "Selection = 1-4, Exit Program = X: " menu_choice
@@ -96,9 +101,11 @@ optional_extras_menu() {
     while true; do
         clear_screen "Setup-Install Optional Extras"
         echo ""
+        echo ""
         echo "1. Install KVM Virtualization Packages and Libvirt"
+        echo ""
         echo "2. Setup Software Managers for Package Management"
-        echo "B. Back to Main Menu"
+        echo ""
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-2, Back to Main = B: " optional_choice
@@ -117,17 +124,22 @@ setup_software_managers_menu() {
     while true; do
         clear_screen "Setup-Install Software Managers"
         echo ""
+        echo ""
         echo "1. Install Gnome Software Manager"
+        echo ""
         echo "2. Install Synaptic Package Manager"
+        echo ""
         echo "3. Enable Snap Applications/Packages"
-        echo "B. Back to Optional Extras"
+        echo ""
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-3, Back to Optional Extras = B: " software_choice
 
         case $software_choice in
             1) install_gnome_software_manager ;;
+            echo ""
             2) install_synaptic_package_manager ;;
+            echo ""
             3) enable_snap_packages ;;
             [Bb]) return ;;
             *) echo "Invalid option. Please try again."; sleep 2 ;;
@@ -172,9 +184,11 @@ cpu_setup() {
     while true; do
         clear_screen "CPU Setup"
         echo ""
+        echo ""
         echo "1. AMD CPU Setup"
+        echo ""
         echo "2. Intel CPU Setup"
-        echo "B. Back to Main Menu"
+        echo ""
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-2, Back to Main = B: " cpu_choice
@@ -193,11 +207,15 @@ gpu_setup() {
     while true; do
         clear_screen "GPU Setup"
         echo ""
+        echo ""
         echo "1. AMDGPU (Non-ROCm)"
+        echo ""
         echo "2. AMDGPU (ROCm)"
+        echo ""
         echo "3. NVIDIA GPU Setup"
+        echo ""
         echo "4. Intel GPU Setup"
-        echo "B. Back to Main Menu"
+        echo ""
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-4, Back to Main = B: " gpu_choice
