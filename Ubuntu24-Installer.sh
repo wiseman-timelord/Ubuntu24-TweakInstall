@@ -69,13 +69,13 @@ display_main_menu() {
         clear_screen "Main Menu"
         echo ""
         echo ""
-        echo "1. Install Basic Operating System Tools and Utilities"
+        echo "    1. Install - Basic Operating System Tools and Utilities"
         echo ""
-        echo "2. Setup Optional Extras for Virtualization and Packages"
+        echo "    2. Submenu - Software and Virtualization and Wine"
         echo ""
-        echo "3. Configure CPU-Specific Optimization and Drivers"
+        echo "    3. Submenu - CPU-Specific Optimization and Drivers"
         echo ""
-        echo "4. Configure GPU-Specific Optimization and Drivers"
+        echo "    4. Submenu - GPU-Specific Optimization and Drivers"
         echo ""
         echo ""
         print_separator
@@ -102,17 +102,20 @@ optional_extras_menu() {
         clear_screen "Setup-Install Optional Extras"
         echo ""
         echo ""
-        echo "1. Install KVM Virtualization Packages and Libvirt"
+        echo "    1. Install KVM Virtualization Packages and Libvirt"
         echo ""
-        echo "2. Setup Software Managers for Package Management"
+        echo "    2. Setup Software Managers for Package Management"
+        echo ""
+        echo "    3. Install Wine, Winetricks, Recommends and Libraries"
         echo ""
         echo ""
         print_separator
-        read -p "Selection; Menu Options = 1-2, Back to Main = B: " optional_choice
+        read -p "Selection; Menu Options = 1-3, Back to Main = B: " optional_choice
 
         case $optional_choice in
             1) install_kvm_packages ;;
             2) setup_software_managers ;;
+            3) install_wine_winetricks ;;
             [Bb]) return ;;
             *) echo "Invalid option. Please try again."; sleep 2 ;;
         esac
@@ -159,6 +162,67 @@ install_kvm_packages() {
     pause_and_report "KVM virtualization setup completed."
 }
 
+# Function to install Wine, Winetricks, and recommended extras
+install_wine_winetricks() {
+    clear_screen "Wine, Winetricks, and Extras Installation"
+
+    # Enable 32-bit architecture
+    sudo dpkg --add-architecture i386
+    sudo apt update
+
+    # Add WineHQ repository for Ubuntu 24.04 (Noble Numbat)
+    sudo mkdir -pm755 /etc/apt/keyrings
+    sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+    sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources
+    sudo systemctl daemon-reload
+    sudo apt update
+    check_error "WineHQ Repository Setup"
+
+    # Check if winehq-stable is available
+    if ! apt-cache policy winehq-stable | grep -q "Installed: (none)"; then
+        log_message "winehq-stable is already installed. Skipping installation."
+    else
+        # Try to install winehq-stable
+        sudo apt install --install-recommends winehq-stable
+        if [ $? -ne 0 ]; then
+            log_message "Failed to install winehq-stable. Trying fallback to winehq-devel."
+            # Fallback to winehq-devel
+            sudo apt install --install-recommends winehq-devel
+            if [ $? -ne 0 ]; then
+                log_message "Failed to install winehq-devel. Trying fallback to winehq-staging."
+                # Fallback to winehq-staging
+                sudo apt install --install-recommends winehq-staging
+                check_error "Wine Installation (Fallback to Staging)"
+            else
+                check_error "Wine Installation (Fallback to Devel)"
+            fi
+        else
+            check_error "Wine Installation"
+        fi
+    fi
+
+    # Install Winetricks
+    sudo apt install -y winetricks
+    check_error "Winetricks Installation"
+
+    # Install recommended extras (32-bit libraries for compatibility)
+    sudo apt install -y cabextract libasound2-plugins:i386 libcapi20-3:i386 \
+        libdbus-1-3:i386 libfontconfig1:i386 libfreetype6:i386 libglu1-mesa:i386 \
+        libgphoto2-6:i386 libgphoto2-port12:i386 libgstreamer-plugins-base1.0-0:i386 \
+        libgstreamer1.0-0:i386 libgtk-3-0:i386 libjpeg8:i386 libosmesa6:i386 \
+        libpng16-16:i386 libpulse0:i386 libsdl2-2.0-0:i386 libudev1:i386 \
+        libusb-1.0-0:i386 libx11-6:i386 libxcomposite1:i386 libxcursor1:i386 libxfixes3:i386 \
+        libxi6:i386 libxinerama1:i386 libxrandr2:i386 libxrender1:i386 libxxf86vm1:i386 ocl-icd-libopencl1:i386 \
+        p7zip-full
+    check_error "Wine Recommended Extras Installation"
+
+    # Optional: Install additional Wine dependencies
+    sudo apt install -y libgpg-error0:i386 libxml2:i386 libasound2-plugins:i386 \
+        libsdl2-2.0-0:i386 libfreetype6:i386 libdbus-1-3:i386 libsqlite3-0:i386
+    check_error "Additional Wine Dependencies Installation"
+
+    pause_and_report "Wine, Winetricks, and recommended extras installation completed."
+}
 # Function for basic OS installation (Ubuntu-specific)
 basic_installation() {
     clear_screen "Setup-Install Basic Requirements"
@@ -178,9 +242,9 @@ cpu_setup() {
         clear_screen "CPU Setup"
         echo ""
         echo ""
-        echo "1. AMD CPU Setup"
+        echo "    1. AMD CPU Setup"
         echo ""
-        echo "2. Intel CPU Setup"
+        echo "    2. Intel CPU Setup"
         echo ""
         echo ""
         print_separator
@@ -201,13 +265,13 @@ gpu_setup() {
         clear_screen "GPU Setup"
         echo ""
         echo ""
-        echo "1. AMDGPU (Non-ROCm)"
+        echo "    1. AMDGPU (Non-ROCm)"
         echo ""
-        echo "2. AMDGPU (ROCm)"
+        echo "    2. AMDGPU (ROCm)"
         echo ""
-        echo "3. NVIDIA GPU Setup"
+        echo "    3. NVIDIA GPU Setup"
         echo ""
-        echo "4. Intel GPU Setup"
+        echo "    4. Intel GPU Setup"
         echo ""
         echo ""
         print_separator
@@ -322,4 +386,3 @@ clear_screen "Ubuntu Post-Install Setup"
 check_root
 log_message "Ubuntu post-installation setup script started at $(date)"
 display_main_menu
-
