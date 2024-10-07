@@ -96,8 +96,8 @@ Press Enter to continue...
 
 ### Notation:
 - Minimum Windows 10 for Vertio/Kvm/QEmu Drivers from `Virtio-Win-0.1.262.Iso`, Windows 7-81 did not complete Setup.  
-- For `Ubuntu 22.04` Assistance `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04` and for `Ubuntu 24` assistance go here `https://chatgpt.com/g/g-OPkIvf0HN-java-21-postgresql-16`, it could be done better, as usual with gpt sessions, ask for commands to be able to produce output, in relevance to updates you wish to implement, so that then after being fed ouput.
-- Its for 24, because thats the version I was using at the time, this may later expand like 22-24 or there will be new version Ubuntu24-TweakInstall. 
+- For `Ubuntu 22.04` Assistance `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04` and for `Ubuntu 24` assistance go here `https://chatgpt.com/g/g-OPkIvf0HN-java-21-postgresql-16`, I would like to make my own ones but, as usual with gpt sessions, ask for commands to be able to produce output, in relevance to updates you wish to implement, so that then after being fed ouput.
+- Its for 24, because thats the version I was using at the time, this may later expand like 22-24 or there will be new version ie Ubuntu26-TweakInstall. 
 - `Intermediate OS Setup` includes things like, `KVM` for Machine Emulation and `LLM` things for Model Interference, if you dont need these things, then dont use the option.
 - `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. 
 - Its a continuation of the `Fedora40-TweakInstall` project, `Ubuntu24-TweakInstall` is more safer/complete. `Fedora40-TweakInstall` is hidden due to untested tweaks, that require inspection/fixing/testing, which wont happen unless I reinstall Fedora.
