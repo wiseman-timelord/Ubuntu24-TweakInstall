@@ -8,6 +8,7 @@ Having not used Linux outside of Wsl for a while, there were some basic things I
 ### Features:
 - Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop. (Installer)
 - Intermediate OS setup installs development tools, QEMU, libvirt, GCC, GNOME tweaks, and Vulkan drivers. (Installer)
+- Wine libraries for, audio (libasound2-plugins and libpulse0), graphics (libglu1-mesa and libosmesa6), better USB device, better linux integration with X11, multimedia applications (GStreamer libraries), font rendering, image formats, GPU acceleration (Direct3D 12 to Vulkan).
 - CPU setup offers options for AMD and Intel CPU-specific tools and optimizations. (Installer)
 - GPU setup provides options for AMDGPU (Non-ROCm and ROCm), NVIDIA, and Intel GPU drivers and optimizations. (Installer)
 - The main menu dynamically updates with the status of each installation step. (Both)
