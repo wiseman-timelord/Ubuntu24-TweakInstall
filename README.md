@@ -98,8 +98,6 @@ Press Enter to continue...
 - For `Ubuntu 24.04` Assistance, go for example, here `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04` or here `https://chatgpt.com/g/g-OPkIvf0HN-java-21-postgresql-16`, and prompt mentioning your version is 24.04. 
 - Would make a better GPT for 24, but people also need to, go fund me or patreon, to assist in paying gpt subscription to do so again..
 - Its for 24, because thats the version I was using at the time, this may later expand like 22-24 or there will be new version ie Ubuntu26-TweakInstall. 
-- `Intermediate OS Setup` includes things like, `KVM` for Machine Emulation and `LLM` things for Model Interference, if you dont need these things, then dont use the option.
-- `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. 
 - Its a continuation of the `Fedora40-TweakInstall` project, `Ubuntu24-TweakInstall` is more safer/complete. `Fedora40-TweakInstall` is hidden due to untested tweaks, that require inspection/fixing/testing, which wont happen unless I reinstall Fedora.
 - Windows Commands in the terminal are (dont expect them to all work perfect, fixing/improving is done here `/etc/profile.d/windows_commands.sh`)...
 ```
@@ -119,6 +117,7 @@ Press Enter to continue...
 
 ### Development 
 Required updates I have noticed from use...
+- `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. NEed to add this and other tweaks for keyboard shortcuts from windows.
 - The, prompts and menus, need to be conformed towards my current standards of format found in other recent programs.
 - The windows commands do not include `copy`. Possibly install of them introduces screen garbage in the title...
 ```
