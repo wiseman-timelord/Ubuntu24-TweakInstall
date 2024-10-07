@@ -1,5 +1,7 @@
 # Ubuntu24-TweakInstall
-Status: Alpha; requires further, testing and development. 
+Installer Script Status: Beta
+Tweaker Script Status: Alpha
+Project Status: requires further, testing and development. 
 
 ### Description:
 Having not used Linux outside of Wsl for a while, there were some basic things I wanted to be more user-friendly. This project then became 2 tools, one for install and one for tweaking, specifically while attempting to install Ubuntu 24.10 Beta. Ubuntu Ubuntu 24 that provides, batch and modular, setup options, including basic requirements (batch), emulation libraries (individual), CPU setup (modular), and GPU setup (modular). It ensures system updates and installations are logged and handles errors gracefully. The second script focuses on implementing Windows-like features for Ubuntu 24, including security tweaks that significantly reduce system security and the addition of Windows-like commands. It is designed for controlled environments where reduced security is acceptable. First thing I noticed after going through the processes of the Installer, is that the sound was working on my Usb SoundCard (Note, GPUs Specific Sound Output Install/Setup is, complicated and not specifically implimented). 
