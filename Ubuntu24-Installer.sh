@@ -112,39 +112,33 @@ optional_extras_menu() {
 
         case $optional_choice in
             1) install_kvm_packages ;;
-            2) setup_software_managers_menu ;;
+            2) setup_software_managers ;;
             [Bb]) return ;;
             *) echo "Invalid option. Please try again."; sleep 2 ;;
         esac
     done
 }
 
-# Software Manager Setup Menu
-setup_software_managers_menu() {
-    while true; do
-        clear_screen "Setup-Install Software Managers"
-        echo ""
-        echo ""
-        echo "1. Install Gnome Software Manager"
-        echo ""
-        echo "2. Install Synaptic Package Manager"
-        echo ""
-        echo "3. Enable Snap Applications/Packages"
-        echo ""
-        echo ""
-        print_separator
-        read -p "Selection; Menu Options = 1-3, Back to Optional Extras = B: " software_choice
+# Function to install software managers (Gnome, Synaptic, Snap)
+setup_software_managers() {
+    clear_screen "Setup Software Managers"
 
-        case $software_choice in
-            1) install_gnome_software_manager ;;
-            echo ""
-            2) install_synaptic_package_manager ;;
-            echo ""
-            3) enable_snap_packages ;;
-            [Bb]) return ;;
-            *) echo "Invalid option. Please try again."; sleep 2 ;;
-        esac
-    done
+    # Install Gnome Software Manager
+    sudo apt update
+    sudo apt install -y gnome-software
+    check_error "Gnome Software Manager Installation"
+
+    # Install Synaptic Package Manager
+    sudo apt install -y synaptic
+    check_error "Synaptic Package Manager Installation"
+
+    # Enable Snap Applications/Packages
+    sudo apt install -y snapd
+    sudo systemctl enable --now snapd
+    sudo ln -s /var/lib/snapd/snap /snap
+    check_error "Snap Installation and Enablement"
+
+    pause_and_report "Software managers setup completed."
 }
 
 # KVM Virtualization Package Installation
@@ -164,7 +158,6 @@ install_kvm_packages() {
     
     pause_and_report "KVM virtualization setup completed."
 }
-
 
 # Function for basic OS installation (Ubuntu-specific)
 basic_installation() {
@@ -294,7 +287,6 @@ amdgpu_rocm_setup() {
     
     pause_and_report "AMDGPU (ROCm) setup completed."
 }
-
 
 # Function for NVIDIA GPU setup
 nvidia_gpu_setup() {
