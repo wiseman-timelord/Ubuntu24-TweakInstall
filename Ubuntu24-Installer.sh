@@ -8,14 +8,6 @@ set -e
 # Variables
 logfile="/var/log/ubuntu_post_install.log"
 
-# Maps/Lists
-declare -A STATUS=(
-    ["BASIC_INSTALL"]="Pending"
-    ["SOFTWARE_MANAGERS"]="Pending"
-    ["CPU_SETUP"]="Pending"
-    ["GPU_SETUP"]="Pending"
-)
-
 # Function to print a dynamic banner with a menu name (80 characters)
 print_banner() {
     local menu_name="$1"
@@ -71,25 +63,22 @@ pause_and_report() {
     read -p "Press Enter to continue..."
 }
 
-# Main Menu with its own input handler
+# Main Menu with consistent option descriptions
 display_main_menu() {
     while true; do
         clear_screen "Main Menu"
         echo ""
-        echo "1. Setup-Install Basic Requirements          (Status: ${STATUS[BASIC_INSTALL]})"
-        echo ""
-        echo "2. Setup-Install Software Managers           (Status: ${STATUS[SOFTWARE_MANAGERS]})"
-        echo ""
-        echo "3. CPU Setup                                (Status: ${STATUS[CPU_SETUP]})"
-        echo ""
-        echo "4. GPU Setup                                (Status: ${STATUS[GPU_SETUP]})"
+        echo "1. Install Basic Operating System Tools and Utilities"
+        echo "2. Setup Optional Extras for Virtualization and Packages"
+        echo "3. Configure CPU-Specific Optimization and Drivers"
+        echo "4. Configure GPU-Specific Optimization and Drivers"
         echo ""
         print_separator
         read -p "Selection = 1-4, Exit Program = X: " menu_choice
 
         case $menu_choice in
             1) basic_installation ;;
-            2) setup_software_managers_menu ;;
+            2) optional_extras_menu ;;
             3) cpu_setup ;;
             4) gpu_setup ;;
             [Xx]) 
@@ -102,42 +91,90 @@ display_main_menu() {
     done
 }
 
-# Function for Software Manager Setup Menu with its own input handler
-setup_software_managers_menu() {
+# Optional Extras Menu for virtualization and package managers
+optional_extras_menu() {
     while true; do
-        clear_screen "Setup-Install Software Managers"
+        clear_screen "Setup-Install Optional Extras"
         echo ""
-        echo "1. Install Gnome Software Manager"
-        echo ""
-        echo "2. Install Synaptic Package Manager"
-        echo ""
-        echo "3. Enable Snap Applications/Packages"
+        echo "1. Install KVM Virtualization Packages and Libvirt"
+        echo "2. Setup Software Managers for Package Management"
+        echo "B. Back to Main Menu"
         echo ""
         print_separator
-        read -p "Selection; Menu Options = 1-3, Back to Main = B: " software_choice
+        read -p "Selection; Menu Options = 1-2, Back to Main = B: " optional_choice
 
-        case $software_choice in
-            1) install_gnome_software_manager ;;
-            2) install_synaptic_package_manager ;;
-            3) enable_snap_packages ;;
-            [Bb]) 
-                if [ "${STATUS[SOFTWARE_MANAGERS]}" == "Pending" ]; then
-                    STATUS[SOFTWARE_MANAGERS]="Partially Completed"
-                fi
-                return ;;
+        case $optional_choice in
+            1) install_kvm_packages ;;
+            2) setup_software_managers_menu ;;
+            [Bb]) return ;;
             *) echo "Invalid option. Please try again."; sleep 2 ;;
         esac
     done
 }
 
-# Function for CPU setup with its own input handler
+# Software Manager Setup Menu
+setup_software_managers_menu() {
+    while true; do
+        clear_screen "Setup-Install Software Managers"
+        echo ""
+        echo "1. Install Gnome Software Manager"
+        echo "2. Install Synaptic Package Manager"
+        echo "3. Enable Snap Applications/Packages"
+        echo "B. Back to Optional Extras"
+        echo ""
+        print_separator
+        read -p "Selection; Menu Options = 1-3, Back to Optional Extras = B: " software_choice
+
+        case $software_choice in
+            1) install_gnome_software_manager ;;
+            2) install_synaptic_package_manager ;;
+            3) enable_snap_packages ;;
+            [Bb]) return ;;
+            *) echo "Invalid option. Please try again."; sleep 2 ;;
+        esac
+    done
+}
+
+# KVM Virtualization Package Installation
+install_kvm_packages() {
+    clear_screen "KVM Virtualization Setup"
+    
+    sudo apt install -y qemu-kvm libvirt-daemon-system virtinst virt-manager
+    check_error "KVM Package Installation"
+
+    # Ensure libvirt and kvm groups are assigned
+    sudo usermod -aG libvirt,kvm "$SUDO_USER"
+    check_error "Libvirt & KVM Group Setup"
+    
+    # Enable and start the libvirt service
+    sudo systemctl enable --now libvirtd
+    check_error "Libvirt Service Activation"
+    
+    pause_and_report "KVM virtualization setup completed."
+}
+
+
+# Function for basic OS installation (Ubuntu-specific)
+basic_installation() {
+    clear_screen "Setup-Install Basic Requirements"
+    
+    sudo apt update -y
+    sudo apt upgrade -y --fix-missing
+    check_error "System Update"
+    sudo apt install -y vim nano curl wget git htop
+    check_error "Basic Tool Installation"
+    
+    pause_and_report "Basic OS installation completed."
+}
+
+# Function for AMD CPU setup
 cpu_setup() {
     while true; do
         clear_screen "CPU Setup"
         echo ""
         echo "1. AMD CPU Setup"
-        echo ""
         echo "2. Intel CPU Setup"
+        echo "B. Back to Main Menu"
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-2, Back to Main = B: " cpu_choice
@@ -151,18 +188,16 @@ cpu_setup() {
     done
 }
 
-# Function for GPU setup with its own input handler
+# Function for GPU setup
 gpu_setup() {
     while true; do
         clear_screen "GPU Setup"
         echo ""
         echo "1. AMDGPU (Non-ROCm)"
-        echo "" 
         echo "2. AMDGPU (ROCm)"
-        echo ""
         echo "3. NVIDIA GPU Setup"
-        echo ""
         echo "4. Intel GPU Setup"
+        echo "B. Back to Main Menu"
         echo ""
         print_separator
         read -p "Selection; Menu Options = 1-4, Back to Main = B: " gpu_choice
@@ -178,60 +213,6 @@ gpu_setup() {
     done
 }
 
-# Function for basic OS installation (Ubuntu-specific)
-basic_installation() {
-    clear_screen "Setup-Install Basic Requirements"
-    
-    sudo apt update -y
-    sudo apt upgrade -y --fix-missing
-    check_error "System Update"
-    sudo apt install -y vim nano curl wget git htop
-    check_error "Basic Tool Installation"
-    
-    STATUS[BASIC_INSTALL]="Completed"
-    pause_and_report "Basic OS installation completed."
-}
-
-# Function to install Gnome Software Manager
-install_gnome_software_manager() {
-    clear_screen "Installing Gnome Software Manager"
-    
-    sudo apt update
-    sudo apt install -y gnome-software
-    check_error "Gnome Software Manager Installation"
-    
-    STATUS[SOFTWARE_MANAGERS]="Completed"
-    pause_and_report "Gnome Software Manager installation completed."
-}
-
-# Function to install Synaptic Package Manager
-install_synaptic_package_manager() {
-    clear_screen "Installing Synaptic Package Manager"
-    
-    sudo apt update
-    sudo apt install -y synaptic
-    check_error "Synaptic Package Manager Installation"
-    
-    STATUS[SOFTWARE_MANAGERS]="Completed"
-    pause_and_report "Synaptic Package Manager installation completed."
-}
-
-# Function to enable Snap applications
-enable_snap_packages() {
-    clear_screen "Enabling Snap Applications/Packages"
-    
-    sudo apt update
-    sudo apt install -y snapd
-    check_error "Snap Installation"
-    
-    sudo systemctl enable --now snapd.socket
-    sudo ln -s /var/lib/snapd/snap /snap
-    check_error "Snap Daemon Setup"
-    
-    STATUS[SOFTWARE_MANAGERS]="Completed"
-    pause_and_report "Snap applications enabled and Snap Daemon configured."
-}
-
 # Function for AMD CPU setup
 amd_cpu_setup() {
     clear_screen "AMD CPU Setup"
@@ -242,7 +223,6 @@ amd_cpu_setup() {
     echo "Setting up AOCL..."
     echo "Please visit the AMD website for detailed AOCL installation instructions."
     
-    STATUS[CPU_SETUP]="Completed (AMD)"
     pause_and_report "AMD CPU setup completed."
 }
 
@@ -252,8 +232,7 @@ intel_cpu_setup() {
     
     sudo apt install -y intel-microcode
     check_error "Intel Microcode Installation"
-
-    STATUS[CPU_SETUP]="Completed (Intel)"
+    
     pause_and_report "Intel CPU setup completed."
 }
 
@@ -274,7 +253,6 @@ amdgpu_non_rocm_setup() {
         check_error "Kernel Optimization for AMDGPU"
     fi
     
-    STATUS[GPU_SETUP]="Completed (AMDGPU Non-ROCm)"
     pause_and_report "AMDGPU (Non-ROCm) setup completed."
 }
 
@@ -285,18 +263,20 @@ amdgpu_rocm_setup() {
     # Add ROCm repository (using Ubuntu-specific repo)
     echo 'deb [arch=amd64] https://repo.radeon.com/rocm/apt/debian/ ubuntu main' | sudo tee /etc/apt/sources.list.d/rocm.list
     sudo apt update
-    
     sudo apt install -y rocm-dkms
     check_error "ROCm Installation"
     
+    # Adding user to necessary groups
     sudo usermod -a -G video $SUDO_USER
     sudo usermod -a -G render $SUDO_USER
-    
+    check_error "Group Permissions for ROCm"
+
+    # Set ROCm path
     echo 'export PATH=$PATH:/opt/rocm/bin' | sudo tee -a /etc/profile.d/rocm.sh
     
-    STATUS[GPU_SETUP]="Completed (AMDGPU ROCm)"
     pause_and_report "AMDGPU (ROCm) setup completed."
 }
+
 
 # Function for NVIDIA GPU setup
 nvidia_gpu_setup() {
@@ -308,7 +288,6 @@ nvidia_gpu_setup() {
     sudo apt install -y $nvidia_driver
     check_error "NVIDIA Driver Installation"
     
-    STATUS[GPU_SETUP]="Completed (NVIDIA)"
     pause_and_report "NVIDIA GPU setup completed."
 }
 
@@ -319,7 +298,6 @@ intel_gpu_setup() {
     sudo apt install -y intel-media-va-driver-non-free
     check_error "Intel GPU Driver Installation"
     
-    STATUS[GPU_SETUP]="Completed (Intel)"
     pause_and_report "Intel GPU setup completed."
 }
 
@@ -334,3 +312,4 @@ clear_screen "Ubuntu Post-Install Setup"
 check_root
 log_message "Ubuntu post-installation setup script started at $(date)"
 display_main_menu
+
