@@ -21,16 +21,18 @@ Having not used Linux outside of Wsl for a while, there were some basic things I
     Ubuntu-PostInstall-Setup - Main Menu
 ================================================================================
 
-    1. Setup-Install Basic Requirements          (Status: Pending)
 
-    2. Setup-Install Software Managers          (Status: Pending)
+1. Install Basic Operating System Tools and Utilities
 
-    3. CPU Setup                                (Status: Pending)
+2. Setup Optional Extras for Virtualization and Packages
 
-    4. GPU Setup                                (Status: Pending)
+3. Configure CPU-Specific Optimization and Drivers
+
+4. Configure GPU-Specific Optimization and Drivers
+
 
 ================================================================================
-Selection = 1-4, Exit Program = X:
+Selection = 1-4, Exit Program = X: 
 
 ```
 - The `Main Menu` for the `Tweaker` (hopefully it can un-do now too)...
