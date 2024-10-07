@@ -95,7 +95,7 @@ Press Enter to continue...
 
 ### Notation:
 - Minimum Windows 10 for Vertio/Kvm/QEmu Drivers from `Virtio-Win-0.1.262.Iso`, Windows 7-81 did not complete Setup.  
-- For `Ubuntu 22.04` Assistance go here `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04` and for `Ubuntu 24` assistance go here `https://chatgpt.com/g/g-OPkIvf0HN-java-21-postgresql-16`, I would like to make my own better ones for ubuntu but, people also need to, go fund me or patreon, as I need funding for gpt subscription to do so again..
+- For `Ubuntu 22.04` Assistance go for example, here `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04` or here `https://chatgpt.com/g/g-OPkIvf0HN-java-21-postgresql-16`, Would make a better one and for 24, but people also need to, go fund me or patreon, as funding needed for gpt subscription to do so again..
 - Its for 24, because thats the version I was using at the time, this may later expand like 22-24 or there will be new version ie Ubuntu26-TweakInstall. 
 - `Intermediate OS Setup` includes things like, `KVM` for Machine Emulation and `LLM` things for Model Interference, if you dont need these things, then dont use the option.
 - `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. 
