@@ -24,13 +24,13 @@ Having not used Linux outside of Wsl for a while, there were some basic things I
 ================================================================================
 
 
-1. Install Basic Operating System Tools and Utilities
+    1. Install - Basic Operating System Tools and Utilities
 
-2. Setup Optional Extras for Virtualization and Packages
+    2. Submenu - Software and Virtualization and Wine
 
-3. Configure CPU-Specific Optimization and Drivers
+    3. Submenu - CPU-Specific Optimization and Drivers
 
-4. Configure GPU-Specific Optimization and Drivers
+    4. Submenu - GPU-Specific Optimization and Drivers
 
 
 ================================================================================
