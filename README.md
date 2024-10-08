@@ -24,9 +24,9 @@ This project became 2 tools, one for install and one for tweaking. The Installer
 ================================================================================
 
 
-    1. Install - Basic Operating System Tools and Utilities
+    1. Action - Basic, Update and Install, of Packages
 
-    2. Submenu - Software and Virtualization and Wine
+    2. Submenu - Software, Virtualization, Wine, Python
 
     3. Submenu - CPU-Specific Optimization and Drivers
 
