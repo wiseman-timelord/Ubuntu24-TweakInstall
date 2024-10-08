@@ -71,7 +71,7 @@ display_main_menu() {
         echo ""
         echo "    1. Install - Basic Operating System Tools and Utilities"
         echo ""
-        echo "    2. Submenu - Software and Virtualization and Wine"
+        echo "    2. Submenu - Software, Virtualization, Wine, Python"
         echo ""
         echo "    3. Submenu - CPU-Specific Optimization and Drivers"
         echo ""
@@ -108,7 +108,7 @@ optional_extras_menu() {
         echo ""
         echo "    3. Install Wine, Winetricks, Recommends and Libraries"
         echo ""
-        echo "    4. Install Python and Related Packages"
+        echo "    4. Install Python, Git, and Related Packages"
         echo ""
         echo ""
         print_separator
