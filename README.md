@@ -37,7 +37,7 @@ This project became 2 tools, one for install and one for tweaking. The Installer
 Selection = 1-4, Exit Program = X: 
 
 ```
-- The `Main Menu` for the `Tweaker` (it can un-do, but I dont trust)...
+- The `Main Menu` for the `Tweaker` (Alpha)...
 ```
 ================================================================================
     Ubuntu24-Windows-like Features - Main Menu
