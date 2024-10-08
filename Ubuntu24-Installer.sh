@@ -69,7 +69,7 @@ display_main_menu() {
         clear_screen "Main Menu"
         echo ""
         echo ""
-        echo "    1. Install - Basic Operating System Tools and Utilities"
+        echo "    1. Action - Basic, Update and Install, of Packages"
         echo ""
         echo "    2. Submenu - Software, Virtualization, Wine, Python"
         echo ""
