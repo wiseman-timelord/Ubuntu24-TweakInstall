@@ -108,19 +108,23 @@ optional_extras_menu() {
         echo ""
         echo "    3. Install Wine, Winetricks, Recommends and Libraries"
         echo ""
+        echo "    4. Install Python and Related Packages"
+        echo ""
         echo ""
         print_separator
-        read -p "Selection; Menu Options = 1-3, Back to Main = B: " optional_choice
+        read -p "Selection; Menu Options = 1-4, Back to Main = B: " optional_choice
 
         case $optional_choice in
             1) install_kvm_packages ;;
             2) setup_software_managers ;;
             3) install_wine_winetricks ;;
+            4) install_python_packages ;;
             [Bb]) return ;;
             *) echo "Invalid option. Please try again."; sleep 2 ;;
         esac
     done
 }
+
 
 # Function to install software managers (Gnome, Synaptic, Snap)
 setup_software_managers() {
@@ -223,6 +227,18 @@ install_wine_winetricks() {
 
     pause_and_report "Wine, Winetricks, and recommended extras installation completed."
 }
+
+# Function to install Python and related packages
+install_python_packages() {
+    clear_screen "Python and Related Packages Installation"
+
+    sudo apt update
+    sudo apt install -y git python3 python3-pip python3-virtualenv build-essential libglu1-mesa libglib2.0-dev libjpeg-turbo8 libpng16-16 libxss1 libxml2 mesa-common-dev python3-venv libsdl2-dev libvlc-dev xz-utils zlib1g
+    check_error "Python and Related Packages Installation"
+
+    pause_and_report "Python and related packages installation completed."
+}
+
 # Function for basic OS installation (Ubuntu-specific)
 basic_installation() {
     clear_screen "Setup-Install Basic Requirements"
