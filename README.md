@@ -46,11 +46,12 @@ Selection; Menu Options 1-5, Exit Program = X:
 
 
 ### INSTRUCTIONS:
-1. download the latest release version, and extract to your chosen programs folder (there are no requirements or libraries to install).
-2. run "sudo ./Ubuntu24-TweakInstall.sh", this will load the bash menu, allowing checking files and launching. Select "Run Program".
-3. Investigate the appropriate menus, take a look at what it offers, plan what features you intend to use, and select them (ensuring to note errors that pop up). Ensure to think about what you are doing, dont install stuff you dont need and wont use.
-4) After finishing configutation, then exit the program and restart computer, to enable all tweaks/installs to take effect. 
-5) If there are issues with anything immediately, then check the notes you made (if any), and investigate appropriately to complete relating install/tweak.
+1. download the latest release version, and extract to your chosen programs folder (there are no requirements or libraries to install). 
+2. Ensure, `./Ubuntu24-TweakInstall.sh` is executable via `sudo chmod +x ./Ubuntu24-TweakInstall.sh` or `RightClick > Properties > TickExecutable`.
+3. run "sudo ./Ubuntu24-TweakInstall.sh", this will load the bash menu, allowing checking files and launching. Select "Run Program".
+4. Investigate the appropriate menus, take a look at what it offers, plan what features you intend to use, and select them (ensuring to note errors that pop up). Ensure to think about what you are doing, dont install stuff you dont need and wont use.
+5. After finishing configutation, then exit the program and restart computer, to enable all tweaks/installs to take effect. 
+6. If there are issues with anything immediately, then check the notes you made (if any), and investigate appropriately to complete relating install/tweak.
 - hopefully whatever tweak or install you did worked out for you, if not, then I advise asking gpt/deepseek/grok/etc, and input the output you got from the terminal with your prompt.
 
 ### Notation:
