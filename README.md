@@ -1,4 +1,4 @@
-# Ubuntu 22-24 - Tweaks & Installer
+# Ubuntu ~24 - Tweaks & Installer
 - Installer Script Status: Beta (Early, but working).
 - Tweaker Script Status: Alpha (Do not use, danger).
 
@@ -43,48 +43,19 @@ Selection = 1-4, Exit Program = X:
     Ubuntu24-Windows-like Features - Main Menu
 ================================================================================
 
-    1. Disable sudo password prompt (SUDO_NOPASSWD)          (Status: Enabled)
+1. Disable sudo password prompt (SUDO_NOPASSWD)          (Status: Enabled)
 
-    2. Disable AppArmor (APPARMOR)                           (Status: Enabled)
+2. Enable auto-login (AUTO_LOGIN)                        (Status: Disabled)
 
-    3. Disable UFW (Uncomplicated Firewall) (UFW)            (Status: Enabled)
+3. Implement Windows-like commands (WINDOWS_COMMANDS)    (Status: Enabled)
 
-    4. Enable auto-login (AUTO_LOGIN)                        (Status: Disabled)
-
-    5. Implement Windows-like commands (WINDOWS_COMMANDS)    (Status: Enabled)
+4. Adjust GNOME hang timeout (Force Quit dialog)         (Current: 30s)
 
 ================================================================================
-Selection = 1-5, Exit Program = X:               
+Selection = 1-4, Exit Program = X: x
+         
+```
 
-```
-- The example option execution output, in this case `Basic OS Install`...
-```
-================================================================================
-    Ubuntu24-TweakInstall - Basic OS Install
-================================================================================
-Get:1 http://archive.ubuntu.com/ubuntu oracular InRelease [126 kB]
-Hit:2 http://security.ubuntu.com/ubuntu oracular-security InRelease            
-Hit:3 https://ppa.launchpadcontent.net/graphics-drivers/ppa/ubuntu oracular InRelease
-Hit:4 http://archive.ubuntu.com/ubuntu oracular-updates InRelease
-Hit:5 http://archive.ubuntu.com/ubuntu oracular-backports InRelease
-Get:6 http://archive.ubuntu.com/ubuntu oracular/main amd64 Packages [1,438 kB]
-Get:7 http://archive.ubuntu.com/ubuntu oracular/main amd64 c-n-f Metadata [31.2 kB]
-...
-
-...
-update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vim (vim) in a
-uto mode
-update-alternatives: using /usr/bin/vim.basic to provide /usr/bin/vimdiff (vimdi
-ff) in auto mode
-Setting up git (1:2.45.2-1ubuntu1) ...
-Processing triggers for hicolor-icon-theme (0.18-1) ...
-Processing triggers for gnome-menus (3.36.0-1.1ubuntu3) ...
-Processing triggers for man-db (2.12.1-3) ...
-Processing triggers for desktop-file-utils (0.27-2build1) ...
-Basic Tool Installation completed successfully.
-Basic OS installation completed.
-Press Enter to continue...
-```
 
 ### INSTRUCTIONS:
 1) download and copy file `Ubuntu24-TweakInstall.sh` to a suitable directory.
