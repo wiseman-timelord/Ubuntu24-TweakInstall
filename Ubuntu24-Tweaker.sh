@@ -11,11 +11,31 @@ logfile="/var/log/ubuntu24_windows_features.log"
 # Variables to track the status of features
 declare -A STATUS=(
     ["SUDO_NOPASSWD"]="Disabled"
-    ["APPARMOR"]="Enabled"
-    ["UFW"]="Enabled"
     ["AUTO_LOGIN"]="Disabled"
     ["WINDOWS_COMMANDS"]="Disabled"
+    ["HANG_TIMEOUT"]=""
 )
+
+# Function to get current hang timeout
+get_hang_timeout() {
+    local milliseconds
+    # Try gsettings first and strip 'uint32 ' prefix if present
+    milliseconds=$(sudo -u "$SUDO_USER" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u "$SUDO_USER")/bus \
+        gsettings get org.gnome.mutter check-alive-timeout 2>/dev/null | sed 's/uint32 //' || true)
+    
+    # Fallback to dconf if gsettings fails
+    if [[ -z "$milliseconds" ]] || [[ "$milliseconds" == "No such key"* ]]; then
+        milliseconds=$(sudo -u "$SUDO_USER" dconf read /org/gnome/mutter/check-alive-timeout 2>/dev/null || true)
+    fi
+    
+    # Default to 5 seconds if no value found
+    if [[ -z "$milliseconds" ]] || ! [[ "$milliseconds" =~ ^[0-9]+$ ]]; then
+        milliseconds=5000
+    fi
+    
+    # Convert to seconds
+    echo $((milliseconds / 1000))
+}
 
 # Function to print a dynamic banner with a menu name (80 characters)
 print_banner() {
@@ -73,20 +93,21 @@ pause_and_report() {
 
 # Function to display the main menu with status updates
 display_main_menu() {
+    # Update hang timeout status
+    STATUS["HANG_TIMEOUT"]="$(get_hang_timeout)s"
+    
     clear_screen "Main Menu"
     echo ""
     echo "1. Disable sudo password prompt (SUDO_NOPASSWD)          (Status: ${STATUS[SUDO_NOPASSWD]})"
     echo ""
-    echo "2. Disable AppArmor (APPARMOR)                           (Status: ${STATUS[APPARMOR]})"
+    echo "2. Enable auto-login (AUTO_LOGIN)                        (Status: ${STATUS[AUTO_LOGIN]})"
     echo ""
-    echo "3. Disable UFW (Uncomplicated Firewall) (UFW)            (Status: ${STATUS[UFW]})"
+    echo "3. Implement Windows-like commands (WINDOWS_COMMANDS)    (Status: ${STATUS[WINDOWS_COMMANDS]})"
     echo ""
-    echo "4. Enable auto-login (AUTO_LOGIN)                        (Status: ${STATUS[AUTO_LOGIN]})"
-    echo ""
-    echo "5. Implement Windows-like commands (WINDOWS_COMMANDS)    (Status: ${STATUS[WINDOWS_COMMANDS]})"
+    echo "4. Adjust GNOME hang timeout (Force Quit dialog)         (Current: ${STATUS[HANG_TIMEOUT]})"
     echo ""
     print_separator
-    read -p "Selection = 1-5, Exit Program = X: " menu_choice
+    read -p "Selection = 1-4, Exit Program = X: " menu_choice
 }
 
 # Function to toggle sudo password prompt
@@ -105,42 +126,6 @@ toggle_sudo_nopasswd() {
         log_message "Sudo password prompt enabled."
     fi
     pause_and_report "Sudo password prompt status updated."
-}
-
-# Function to toggle AppArmor
-toggle_apparmor() {
-    clear_screen "Disable AppArmor"
-    if [ "${STATUS[APPARMOR]}" == "Enabled" ]; then
-        sudo systemctl disable apparmor
-        sudo systemctl stop apparmor
-        check_error "AppArmor Disable"
-        STATUS[APPARMOR]="Disabled"
-        log_message "AppArmor disabled."
-    else
-        sudo systemctl enable apparmor
-        sudo systemctl start apparmor
-        check_error "AppArmor Enable"
-        STATUS[APPARMOR]="Enabled"
-        log_message "AppArmor enabled."
-    fi
-    pause_and_report "AppArmor status updated."
-}
-
-# Function to toggle UFW
-toggle_ufw() {
-    clear_screen "Disable UFW"
-    if [ "${STATUS[UFW]}" == "Enabled" ]; then
-        sudo ufw disable
-        check_error "UFW Disable"
-        STATUS[UFW]="Disabled"
-        log_message "UFW disabled."
-    else
-        sudo ufw enable
-        check_error "UFW Enable"
-        STATUS[UFW]="Enabled"
-        log_message "UFW enabled."
-    fi
-    pause_and_report "UFW status updated."
 }
 
 # Function to toggle auto-login
@@ -226,6 +211,40 @@ EOL
     STATUS[WINDOWS_COMMANDS]="Enabled"
 }
 
+# Function to adjust GNOME hang timeout
+adjust_hang_timeout() {
+    clear_screen "Adjust GNOME Hang Timeout"
+    
+    # Get current value in seconds
+    current_seconds=$(get_hang_timeout)
+    
+    echo "Current hang timeout: $current_seconds seconds"
+    read -p "Enter new timeout in seconds (0=disable): " new_seconds
+    
+    # Validate input
+    if [[ ! "$new_seconds" =~ ^[0-9]+$ ]]; then
+        log_message "Invalid timeout value: $new_seconds"
+        pause_and_report "Error: Must be a positive integer"
+        return
+    fi
+    
+    # Convert to milliseconds
+    new_milliseconds=$((new_seconds * 1000))
+    
+    # Set the new timeout (using gsettings with proper uint32 format)
+    if sudo -u "$SUDO_USER" DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u "$SUDO_USER")/bus \
+        gsettings set org.gnome.mutter check-alive-timeout "uint32 $new_milliseconds" 2>/dev/null; then
+        log_message "Set hang timeout to ${new_seconds}s via gsettings"
+    else
+        sudo -u "$SUDO_USER" dconf write /org/gnome/mutter/check-alive-timeout "$new_milliseconds"
+        log_message "Set hang timeout to ${new_seconds}s via dconf"
+    fi
+    
+    check_error "Hang Timeout Adjustment"
+    STATUS["HANG_TIMEOUT"]="${new_seconds}s"
+    pause_and_report "Hang timeout updated to ${new_seconds} seconds"
+}
+
 # Function to handle invalid input
 invalid_option() {
     echo -e "\nInvalid option selected. Please try again."
@@ -239,10 +258,9 @@ main_menu_loop() {
         
         case $menu_choice in
             1) toggle_sudo_nopasswd ;;
-            2) toggle_apparmor ;;
-            3) toggle_ufw ;;
-            4) toggle_auto_login ;;
-            5) implement_windows_commands ;;
+            2) toggle_auto_login ;;
+            3) implement_windows_commands ;;
+            4) adjust_hang_timeout ;;
             [Xx]) 
                 log_message "Exiting the Windows-like Features script."
                 echo "Exiting..."
@@ -257,4 +275,6 @@ main_menu_loop() {
 clear_screen "Windows-like Features"
 check_root
 log_message "Windows-like Features script started at $(date)"
+# Initialize hang timeout status
+STATUS["HANG_TIMEOUT"]="$(get_hang_timeout)s"
 main_menu_loop
