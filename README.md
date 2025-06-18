@@ -16,43 +16,32 @@ This project includes tool areas, system install and system tweaking and system 
 - User folder configurations allow individual folder tweaks (e.g., Desktop, Downloads) with current paths displayed, supporting reset to defaults for personalized file organization. (Both)
 
 ### Preview:
-- The `Main Menu` for the `Installer`...
+- The `Main Menu` has sub-menus...
 ```
 ================================================================================
-    Ubuntu-PostInstall-Setup - Main Menu
+    Ubuntu 24 - Tweaks and Installer
 ================================================================================
 
 
-    1. Action - Basic, Update and Install, of Packages
-
-    2. Submenu - Software, Virtualization, Wine, Python
-
-    3. Submenu - CPU-Specific Optimization and Drivers
-
-    4. Submenu - GPU-Specific Optimization and Drivers
 
 
-================================================================================
-Selection = 1-4, Exit Program = X: 
+    1. System Installation and Updates
 
-```
-- The `Main Menu` for the `Tweaker`...
-```
-================================================================================
-    Ubuntu24-Windows-like Features - Main Menu
-================================================================================
+    2. Software and Package Management
 
-1. Disable sudo password prompt (SUDO_NOPASSWD)          (Status: Enabled)
+    3. Hardware Optimization and Drivers
 
-2. Enable auto-login (AUTO_LOGIN)                        (Status: Disabled)
+    4. System Tweaks and Customizations
 
-3. Implement Windows-like commands (WINDOWS_COMMANDS)    (Status: Enabled)
+    5. User Folder Configurations
 
-4. Adjust GNOME hang timeout (Force Quit dialog)         (Current: 30s)
 
-================================================================================
-Selection = 1-4, Exit Program = X: x
-         
+
+
+--------------------------------------------------------------------------------
+Selection; Menu Options 1-5, Exit Program = X: 
+
+
 ```
 
 
