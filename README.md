@@ -60,7 +60,7 @@ Selection; Menu Options 1-5, Exit Program = X:
 - Its for 24, because thats the version I was using at the time, this may later expand like 22-24 or there will be new version ie Ubuntu26-TweakInstall.
 - I was unable to install `24.04.x`, so I installed `22.04 LTS` then upgraded to `24.04.1 LTS`, other people also had issues installing on nvme, `24.10 Beta` did not have these issues, but was beta. 
 - Its a continuation of the `Fedora40-TweakInstall` project, `Ubuntu24-TweakInstall` is more safer/complete. `Fedora40-TweakInstall` is hidden due to untested tweaks, that require inspection/fixing/testing, which wont happen unless I reinstall Fedora.
-- Windows Commands in the terminal are (dont expect them to all work perfect, fixing/improving is done here `/etc/profile.d/windows_commands.sh`)...
+- Additional Windows Commands in the terminal are shortcut to relating linux commands  (fixing/improving is done here `/etc/profile.d/windows_commands.sh`)...
 ```
 `dir` - Lists directory contents in a detailed format.
 `copy` - Copies files and directories.
