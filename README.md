@@ -1,20 +1,19 @@
-# Ubuntu ~24 - Tweaks & Installer
-- Installer Script Status: Beta (Early, but working).
-- Tweaker Script Status: Alpha (Do not use, danger).
+# Ubuntu 24 - Tweaks & Installer
+- Status: Beta (needs further testing and improvement).
 
 ### Description:
-This project became 2 tools, one for install and one for tweaking. The Installer saves time, researching and finding the correct commands, to do basic stuff after install of `Ubuntu 24.04`, ensuring system updates and installations, are printed and errors handled. The tweaker script focuses on implementing Windows-like features and other tweaks, including the addition of Windows-like common commands to go along side the relating common linux commands, but also significantly reducing system security for home where reduced password security is acceptable.
+This project includes tool areas, system install and system tweaking and system folders. The Installer saves time, researching and finding the correct commands, to do basic stuff after install of `Ubuntu 24.10`, ensuring system updates and installations, are printed and errors handled. The tweaker script focuses on implementing Windows-like features and other tweaks, including the addition of Windows-like common commands to go along side the relating common linux commands, but also significantly reducing system security for home where reduced password security is acceptable.
 
 ### Features:
-- Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop. (Installer)
-- Intermediate OS setup installs development tools, QEMU, libvirt, GCC, GNOME tweaks, and Vulkan drivers. (Installer)
-- Wine libraries for better, audio, graphics, USB device, Linux integration with X11, multimedia formats, font rendering, and image formats.
-- CPU setup offers options for AMD and Intel CPU-specific tools and optimizations. (Installer)
-- GPU setup provides options for AMDGPU (Non-ROCm and ROCm), NVIDIA, and Intel GPU drivers and optimizations. (Installer)
-- The main menu dynamically updates with the status of each installation step. (Both)
-- Option to implement Windows-like commands such as dir, copy, move, del, md, rd, cls, type, where, echo, shutdown, and restart. (Tweaker)
-- Option for disable sudo password prompts, AppArmor, and password complexity requirements to mimic Windows Disable, `UAC` and `Software Protection`, type actions. (Tweaker)
-- Windows-like features include adding basic Windows-like commands to the terminal, `cd..`, `dir`, etc. (Tweaker)
+- Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop. (Both)
+- Intermediate OS setup includes development tools, QEMU, libvirt, GCC, GNOME tweaks, and Vulkan drivers. (Both)
+- Wine libraries for enhanced audio, graphics, USB device support, Linux integration with X11, multimedia formats, font rendering, and image formats for better compatibility with Windows applications. (Both)
+- CPU setup offers options for AMD and Intel CPUs-specific tools and optimizations, for performance tuning. (Both)
+- GPU setup provides options for AMDGPU (Non-ROCm and ROCm), NVIDIA, and Intel GPU drivers and optimizations for graphics performance. (Both)
+- The main menu dynamically updates with the status of each installation step for user clarity. (Both)
+- Option to implement Windows-like commands such as dir, copy, move, del, md, rd, cls, type, where, echo, shutdown, and restart for familiar terminal use. (Both)
+- Option to disable sudo password prompts, AppArmor, and password complexity requirements to mimic Windows-like behavior (e.g., disabling UAC and Software Protection for ease of administration). (Both)
+- User folder configurations allow individual folder tweaks (e.g., Desktop, Downloads) with current paths displayed, supporting reset to defaults for personalized file organization. (Both)
 
 ### Preview:
 - The `Main Menu` for the `Installer`...
@@ -58,12 +57,12 @@ Selection = 1-4, Exit Program = X: x
 
 
 ### INSTRUCTIONS:
-1) download and copy file `Ubuntu24-TweakInstall.sh` to a suitable directory.
-2) As required, then make the file executable with the  `chmod +x Ubuntu24-TweakInstall.sh`, then run either, `sudo ./Ubuntu24-Installer.sh` or `sudo ./Ubuntu24-Tweaker.sh`.
-3) Investigate the appropriate menus, take a look at what it offers, plan what features you intend to use, and select them (ensuring to note errors that pop up).
-4) Restart computer, to enable all tweaks/installs to take effect. 
+1. download the latest release version, and extract to your chosen programs folder (there are no requirements or libraries to install).
+2. run "sudo ./Ubuntu24-TweakInstall.sh", this will load the bash menu, allowing checking files and launching. Select "Run Program".
+3. Investigate the appropriate menus, take a look at what it offers, plan what features you intend to use, and select them (ensuring to note errors that pop up). Ensure to think about what you are doing, dont install stuff you dont need and wont use.
+4) After finishing configutation, then exit the program and restart computer, to enable all tweaks/installs to take effect. 
 5) If there are issues with anything immediately, then check the notes you made (if any), and investigate appropriately to complete relating install/tweak.
-5) Move on to next stage, whatever you determine to be of interest, probal, App Center/Software Manager; At this point any new issues are your own doing.
+- hopefully whatever tweak or install you did worked out for you, if not, then I advise asking gpt/deepseek/grok/etc, and input the output you got from the terminal with your prompt.
 
 ### Notation:
 - Minimum Windows 10 for Vertio/Kvm/QEmu Drivers from `Virtio-Win-0.1.262.Iso`, Windows 7-81 did not complete Setup.  
@@ -87,22 +86,23 @@ Selection = 1-4, Exit Program = X: x
 `shutdown` - Shuts down the system.
 `restart` - Restarts the system.
 ```
+- Unsafe tweaks removed for, ufw and apparmor.
+
+### File Structure
+Program files are like this...
+```
+.\Ubuntu24-TweakInstall.sh
+.\launcher.py
+.\scripts\interface.py
+.\scripts\utility.py
+```
 
 ### Development 
 - Immediate work...
-1. Remove opensnitch (did not work).
-2. Remove Apparmor (dangerous).
+1. Add opensnitch.
 - Required updates I have noticed from use...
 1. `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. NEed to add this and other tweaks for keyboard shortcuts from windows.
-2. The, prompts and menus, need to be conformed towards my current standards of format found in other recent programs.
-3. The windows commands do not include `copy`. Possibly install of them introduces screen garbage in the title...
-```
-================================================================================
--e \n    Ubuntu24-Windows-like Features - Main Menu
-================================================================================
-```
 - The Individual `VM` related install seems odd now, needs to be made into Modular submenu again. `LLM` option had to be removed, error with build-tools was it? But still, LLM was a bad choice, because people will want custom Torch version possibly. Maybe Just expand out the options for the VM setup, so as to include different VM modules.
 
 ### Warnings:
-- Tweaker = Experimental (use at own risk). Alike the Installer, you are NOT intended to just use ALL of the features, but more so, be selective, and backup before hand, I am postponing further development untill I have a bootable hd cloner working. For now I would keep the tweaker open, and ensure you can still run for example `Firefox`, just to make sure new complex processes can still run, and then if they dont, then you will be able to un-do the relating tweaks, and try again. Again the "Tweaker" script is extremely experimental, so I advise first trying them out on a VM of the OS you intend to use them on. Or just dont use the tweaker for now.
 - If there is some issue with a device, after restarting, after using the Installer, then try re-starting again, this fixed itself for me, but I had a blank screen on one of the monitors, its an iffy old monitor prone to issues though.
