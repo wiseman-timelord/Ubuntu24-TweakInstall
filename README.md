@@ -54,6 +54,7 @@ Selection; Menu Options 1-5, Exit Program = X:
 - hopefully whatever tweak or install you did worked out for you, if not, then I advise asking gpt/deepseek/grok/etc, and input the output you got from the terminal with your prompt.
 
 ### Notation:
+- This program is typically tested/updated when the creator does a new install of ubuntu 24.
 - Minimum Windows 10 for Vertio/Kvm/QEmu Drivers from `Virtio-Win-0.1.262.Iso`, Windows 7-81 did not complete Setup.  
 - For `Ubuntu 24` Assistance, go for example, here `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04` or here `https://chatgpt.com/g/g-OPkIvf0HN-java-21-postgresql-16`, and prompt mentioning your specific version is 24.xx. 
 - Would make a better GPT for 24, but people also need to, go fund me or patreon, to assist in paying gpt subscription to do so again..
@@ -88,10 +89,10 @@ Program files are like this...
 
 ### Development 
 - Immediate work...
-1. Add opensnitch.
-- Required updates I have noticed from use...
-1. `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. NEed to add this and other tweaks for keyboard shortcuts from windows.
-- The Individual `VM` related install seems odd now, needs to be made into Modular submenu again. `LLM` option had to be removed, error with build-tools was it? But still, LLM was a bad choice, because people will want custom Torch version possibly. Maybe Just expand out the options for the VM setup, so as to include different VM modules.
+1. Add opensnitch using method found to be working via flatpack as instructed on the github repository. (this method works)
+2. Add hybrid graphics install with radeon as main and nvidia as compute, in the method I used.
+3. `Start + e` :- Go to `Settings>Keyboard>Add Custom`, then type in `nautilus` for the command, and put `Start + e` in the Shortcut, and give it a fitting title like `Explorer Shortcut`. NEed to add this and other tweaks for keyboard shortcuts from windows.
+4. The Individual `VM` related install seems odd now, needs to be made into Modular submenu again. `LLM` option had to be removed, error with build-tools was it? But still, LLM was a bad choice, because people will want custom Torch version possibly. Maybe Just expand out the options for the VM setup, so as to include different VM modules.
 
 ### Warnings:
 - If there is some issue with a device, after restarting, after using the Installer, then try re-starting again, this fixed itself for me, but I had a blank screen on one of the monitors, its an iffy old monitor prone to issues though.
