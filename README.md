@@ -2,7 +2,7 @@
 - Status: Beta (recent conversion bash to python, needs further testing).
 
 ### Description:
-This project includes tool areas, system install and system tweaking and system folders. The Installer saves time, researching and finding the correct commands, to do basic stuff after install of `Ubuntu 24.10`, ensuring system updates and installations, are printed and errors handled. The tweaker script focuses on implementing Windows-like features and other tweaks, including the addition of Windows-like common commands to go along side the relating common linux commands, but also significantly reducing system security for home where reduced password security is acceptable. In short its the first program you want to use after installing an OS, to take the hastle out of the bulk of the work, or if you are new to linux, and are unsure as to why things dont work and need a quickfix.
+This project includes tool areas, system install and system tweaking and system folders. The Installer saves time, researching and finding the correct commands, to do basic stuff after install of `Ubuntu 24.10`, ensuring system updates and installations, are printed and errors handled. The tweaker script focuses on implementing Windows-like features and other tweaks, including the addition of Windows-like common commands to go along side the relating common linux commands, but also significantly reducing system security for home where reduced password security is acceptable. In short its the first program you want to use after installing an Ubuntu 24 OS, to take the hastle out of the bulk of the work, or if you are new to linux and are unsure.
 
 ### Features:
 - Basic OS installation includes system updates and essential tools like vim, nano, curl, wget, git, and htop. (Both)
