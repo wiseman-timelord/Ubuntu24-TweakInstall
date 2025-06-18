@@ -1,5 +1,5 @@
 # Ubuntu 24 - Tweaks & Installer
-- Status: Beta (needs further testing and improvement).
+- Status: Beta (recent conversion bash to python, needs further testing).
 
 ### Description:
 This project includes tool areas, system install and system tweaking and system folders. The Installer saves time, researching and finding the correct commands, to do basic stuff after install of `Ubuntu 24.10`, ensuring system updates and installations, are printed and errors handled. The tweaker script focuses on implementing Windows-like features and other tweaks, including the addition of Windows-like common commands to go along side the relating common linux commands, but also significantly reducing system security for home where reduced password security is acceptable.
