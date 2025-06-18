@@ -55,10 +55,10 @@ Selection; Menu Options 1-5, Exit Program = X:
 
 ### Notation:
 - Minimum Windows 10 for Vertio/Kvm/QEmu Drivers from `Virtio-Win-0.1.262.Iso`, Windows 7-81 did not complete Setup.  
-- For `Ubuntu 24.04` Assistance, go for example, here `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04` or here `https://chatgpt.com/g/g-OPkIvf0HN-java-21-postgresql-16`, and prompt mentioning your version is 24.04. 
+- For `Ubuntu 24` Assistance, go for example, here `https://chatgpt.com/g/g-sQSBQqeR8-sysadmin-for-ubuntu-22-04` or here `https://chatgpt.com/g/g-OPkIvf0HN-java-21-postgresql-16`, and prompt mentioning your specific version is 24.xx. 
 - Would make a better GPT for 24, but people also need to, go fund me or patreon, to assist in paying gpt subscription to do so again..
 - Its for 24, because thats the version I was using at the time, this may later expand like 22-24 or there will be new version ie Ubuntu26-TweakInstall.
-- I was unable to install `24.04.x`, so I installed `22.04 LTS` then upgraded to `24.04.1 LTS`, other people also had issues installing on nvme, `24.10 Beta` did not have these issues, but was beta. 
+- I was unable to install `24.04.x`, so I installed `24.10 Beta`, which did not have these install issues, and turned out quite good. 
 - Its a continuation of the `Fedora40-TweakInstall` project, `Ubuntu24-TweakInstall` is more safer/complete. `Fedora40-TweakInstall` is hidden due to untested tweaks, that require inspection/fixing/testing, which wont happen unless I reinstall Fedora.
 - Additional Windows Commands in the terminal are shortcut to relating linux commands  (fixing/improving is done here `/etc/profile.d/windows_commands.sh`)...
 ```
